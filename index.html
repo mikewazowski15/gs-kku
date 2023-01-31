@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/src/style.css" />
+
+</head>
+<body class="w3-light-grey">
+
+<!-- Top container -->
+<div class="w3-bar w3-top w3-large" style="z-index:4; background-image: linear-gradient(to right, #eb6a00 , #f89350);">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
+  <span class="w3-bar-item w3-left"><img src="/img/gs.png"></span>
+</div>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-animate-left" style="z-index:3;width:250px;margin-top: 57px;background-color: #dad9d9;" id="mySidebar"><br>
+  <div class="w3-container w3-row">
+    <div class="w3-col s4">
+      <img src="/img/avatar.png" class="w3-circle w3-margin-right" style="width:46px">
+    </div>
+    <div class="w3-col s8 w3-bar">
+      <span>Welcome, <strong>Mike</strong></span><br>
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
+    </div>
+  </div>
+  <hr>
+  <div class="w3-container">
+    <h5>Dashboard</h5>
+  </div>
+  <div class="w3-bar-block">
+    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-users fa-fw"></i>  Overview</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>  Thesis</a>
+  </div>
+</nav>
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:250px;margin-top:43px;">
+
+  <!-- Header -->
+  <header class="w3-container" style="padding-top:22px">
+    <h5><b><i class="fa fa-dashboard"></i> My Dashboard</b></h5>
+  </header>
+
+  <div class="w3-row-padding w3-margin-bottom">
+    <div class="triangle-up"></div>
+    <div class="grid-container">
+        <div class="item1"><div class="square" style="background-image: linear-gradient(#6cd8ff,#08aeea);"></div></div>
+        <div class="item2"><div class="square" style="background-image: linear-gradient( #f0a06b,#eb6a00 );"></div></div>
+        <div class="item3"><div class="square" style="background-image: linear-gradient(#4cd87b,#187928);"></div></div>  
+        <div class="item4"><div class="square" style="background-image: linear-gradient(#e308ea,#85177b);"></div></div>
+    </div>
+    <div class="square2" style="background-image: radial-gradient(#e9e76f,#eede00);"></div>
+    <div class="grid-container2">
+        <div class="item1"><div class="square2" style="background-image: radial-gradient(#be91c9,#7200be);"></div></div>
+        <div class="item2"><div class="square2" style="background-image: radial-gradient(#7ffc59,#009b1a);"></div></div>
+    </div>
+  </div>
+
+  <div class="w3-container">
+    <div class="card">
+      <h3>Progress</h3>
+      <div id="container"></div>
+      <div class="description">
+        Prefer meter
+      </div>
+    </div>
+  </div>
+
+  
+  <hr>
+  <div class="w3-container">
+    <h5>My Thesis</h5>
+    <p>AI</p>
+    <div class="container">
+        <ul class="progressbar">
+          <li class="active">Step 1</li>
+          <li class="active">Step 2</li>
+          <li class="active">Step 3</li>
+          <li class="active">Step 4</li>
+          <li class="active">Step 5</li>
+        </ul>
+    </div>
+
+    <p>Basic Sleep Test</p>
+    <div class="container">
+        <ul class="progressbar">
+          <li class="active">Step 1</li>
+          <li class="active">Step 2</li>
+          <li class="active">Step 3</li>
+          <li class="active">Step 4</li>
+          <li class="">Step 5</li>
+        </ul>
+    </div>
+
+    <p>Vladimir Putin</p>
+    <div class="container">
+        <ul class="progressbar">
+          <li class="active">Step 1</li>
+          <li class="active">Step 2</li>
+          <li class="">Step 3</li>
+          <li class="">Step 4</li>
+          <li class="">Step 5</li>
+        </ul>
+    </div>
+  <hr>
+
+  
+
+  
+
+  <!-- End page content -->
+</div>
+
+<script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+  if (mySidebar.style.display === 'block') {
+    mySidebar.style.display = 'none';
+    overlayBg.style.display = "none";
+  } else {
+    mySidebar.style.display = 'block';
+    overlayBg.style.display = "block";
+  }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+  mySidebar.style.display = "none";
+  overlayBg.style.display = "none";
+}
+</script>
+
+<script src="https://rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>
+
+<script>
+    let bar = new ProgressBar.SemiCircle("#container", {
+      strokeWidth: 12,
+      color: "white",
+      trailColor: "rgba(255,255,255, 0.4)",
+      trailWidth: 12,
+      easing: "easeInOut",
+      duration: 1400,
+      svgStyle: null,
+      text: {
+        value: "",
+        alignToBottom: false,
+        className: "progressbar__label"
+      },
+
+      // Set default step function for all animate calls
+      step: (state, bar) => {
+        bar.path.setAttribute("stroke", state.color);
+        var value = Math.round(bar.value() * 100);
+        if (value === 0) {
+          bar.setText("");
+        } else {
+          bar.setText(value);
+        }
+
+        bar.text.style.color = state.color;
+      }
+    });
+    bar.animate(0.2); // Number from 0.0 to 1.0
+  </script>
+
+</body>
+</html>

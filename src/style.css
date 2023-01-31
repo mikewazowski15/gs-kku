@@ -1,0 +1,139 @@
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+
+.triangle-up {
+    margin-left: auto;
+    margin-right: auto;
+	width: 0;
+	height: 0;
+	border-left: 580px solid transparent;
+	border-right: 580px solid transparent;
+	border-bottom: 200px solid #08aeea;
+}
+
+.square {
+  height: 500px;
+  width: 250px;
+  background-color: #555;
+  margin-left: auto;
+  margin-right: auto;
+}
+.square2 {
+  height: 100px;
+  width: auto;
+  background-color: #555;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 10px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+}
+
+.grid-container > div {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.grid-container2 {
+  display: grid;
+  grid-template-columns: auto auto ;
+}
+
+.grid-container2 > div {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.card {
+    width: 300px;
+    height: 300px;
+    background-color: #08aeea;
+    background-image: linear-gradient(180deg, #eb6a00 0%, #f89350 100%);
+    color: white;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    margin-left: auto;
+    margin-right: 45px;
+  }
+  
+  #container {
+    width: 200px;
+    height: 130px;
+    margin: 0 auto;
+  }
+
+  
+  
+  .description {
+    margin-top: 2rem;
+    text-align: center;
+  }
+  
+  .progressbar__label {
+    font-size: 2.5rem;
+    transform: translate(-50%, 0) !important;
+  }
+  
+  svg {
+    height: 130px;
+    width: 200px;
+    fill: none;
+    stroke: #fafafa;
+    stroke-width: 15;
+    stroke-linecap: round;
+    filter: drop-shadow(-3px -2px 5px rgba(255, 255, 255, 0.5));
+  }
+
+  .container {
+    width: 100%;
+  }
+  
+  .progressbar {
+    counter-reset: step;
+  }
+  .progressbar li {
+    list-style: none;
+    display: inline-block;
+    width: 15%;
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .progressbar li:before {
+    content: counter(step);
+    counter-increment: step;
+    width: 30px;
+    height: 30px;
+    line-height : 30px;
+    border: 2px solid #ddd;
+    border-radius: 100%;
+    display: block;
+    text-align: center;
+    margin: 0 auto 10px auto;
+    background-color: #fff;
+  }
+  .progressbar li:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background-color: #ddd;
+    top: 15px;
+    left: -50%;
+    z-index : -1;
+  }
+  .progressbar li:first-child:after {
+    content: none;
+  }
+  .progressbar li.active {
+    color: green;
+  }
+  .progressbar li.active:before {
+    border-color: green;
+  } 
+  .progressbar li.active + li:after {
+    background-color: green;
+  }
