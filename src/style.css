@@ -141,11 +141,11 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   }
 
   .hold:hover {
-    background-color: #f89350;
+    background-color: #c5c5c4;
   }
 
   .tb {
-    background-color: #ddd;
+    background-color: #ffffff;
     color: #000000;
     border: 1px solid #000000;
     text-align: left;
@@ -153,9 +153,19 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   }
 
   .tb:hover {
-    background-color: #555;
+    background-color: #c5c5c4;
   }
 
   
   
-  
+  progress {
+    accent-color: green;
+    position: absolute;
+    right: 55px;
+    width: 10%;
+  }
+
+  .percent {
+    position: absolute;
+    right: 10px;
+  }

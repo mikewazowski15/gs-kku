@@ -16,7 +16,7 @@
 <body class="w3-light-grey">
 
 <!-- Top container -->
-<div class="w3-bar w3-top w3-large" style="z-index:4; background-image: linear-gradient(to right, #eb6a00 , #f89350);">
+<div class="w3-bar w3-top w3-large" style="z-index:4; background-color: #e7e4e4;">
   <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
   <span class="w3-bar-item w3-left"><img src="img/gs.png"></span>
 </div>
@@ -28,7 +28,8 @@
       <img src="img/avatar.png" class="w3-circle w3-margin-right" style="width:46px">
     </div>
     <div class="w3-col s8 w3-bar">
-      <span>Welcome, <strong>Mike</strong></span><br>
+      <span>Welcome, <strong>ธนิดา</strong></span><br>
+      <a>นางสาวธนิดา คำแพง</a>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
@@ -41,8 +42,8 @@
   <div class="w3-bar-block">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
     <a href="index.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  GS Overview</a>
-    <a href="overview.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>  Overview</a>
-    <a href="personal.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-male fa-fw"></i>  Personal</a>
+    <a href="overview.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>  GS Tasks</a>
+    <a href="personal.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-male fa-fw"></i>  My Tasks</a>
   </div>
 </nav>
 
@@ -59,18 +60,20 @@
   </header>
   <table class="ss" style="width: 80%; margin-left: auto; margin-right: auto;">
     <tr>
-      <th colspan="3">นางสาวธนิดา แพงศรี            &nbsp;ตำแหน่ง : นักวิชาการแผนและสารสนเทศ ชำนาญการ</th>
+      <th colspan="3" style="font-size: 25px; border-bottom: 1px solid white;">My Tasks</th>
     </tr>
     <tr>
-      <td colspan="3" class="hold">
+      <td colspan="3" style="border-bottom: 1px solid white;">
         <a href="#" class="w3-bar-item w3-button w3-padding-large">งานหลัก</a>
         <a href="#" class="w3-bar-item w3-button w3-padding-large">งานรอง</a>
         <a href="#" class="w3-bar-item w3-button w3-padding-large">งานอื่นๆ</a>
       </td>
     </tr>
     <tr>
-        <td onclick="toggle(this)" colspan="3" class="hold">
-            1) งานด้านนโยบายและแผน
+        <td onclick="toggle(this)" colspan="3" class="hold" style="position: relative;">
+            1) งานด้านนโยบายและแผน <i class='fa fa-angle-down' id="arrow1"></i> 
+            <span class="percent" id="per">100%</span>
+            <progress id="file" value="100" max="100" style="display: inline;"> 100% </progress>
         </td>
     </tr>
     <tr id="mydiv" hidden="hidden" class="tb">
@@ -111,38 +114,52 @@
       <td><div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="--value:100"></div></td>
     </tr>
     <tr>
-      <td onclick="" colspan="3" class="hold">
-        2) งานด้านงบประมาณ
+      <td onclick="" colspan="3" class="hold" style="position: relative;">
+        2) งานด้านงบประมาณ <i class='fa fa-angle-down' id="arrow2"></i> 
+        <span class="percent" id="per2">100%</span>
+        <progress id="file2" value="100" max="100"> 100% </progress>
       </td>
     </tr>
     <tr>
-      <td onclick="" colspan="3" class="hold">
-        3) งานด้านกรอบอัตรากำลัง
+      <td onclick="" colspan="3" class="hold" style="position: relative;">
+        3) งานด้านกรอบอัตรากำลัง <i class='fa fa-angle-down' id="arrow3"></i>
+        <span class="percent" id="per3">100%</span>
+         <progress id="file3" value="100" max="100"> 100% </progress>
       </td>
     </tr>
     <tr> 
-      <td onclick="" colspan="3" class="hold">
-        4) งานด้านข้อตกลงการปฏิบัติงาน
+      <td onclick="" colspan="3" class="hold" style="position: relative;">
+        4) งานด้านข้อตกลงการปฏิบัติงาน <i class='fa fa-angle-down'id="arrow4"></i>
+        <span class="percent" id="per4">100%</span>
+         <progress id="file4" value="100" max="100"> 100% </progress>
       </td>
     </tr>
     <tr> 
-      <td onclick="" colspan="3" class="hold">
-        5) งานด้านการประกันคุณภาพ  
+      <td onclick="" colspan="3" class="hold" style="position: relative;">
+        5) งานด้านการประกันคุณภาพ  <i class='fa fa-angle-down' id="arrow5"></i> 
+        <span class="percent" id="per5">100%</span>
+        <progress id="file5" value="100" max="100"> 100% </progress>
       </td>
     </tr> 
     <tr>  
-      <td onclick="" colspan="3" class="hold">
-        6) งานด้านข้อมูลสารสนเทศ
+      <td onclick="" colspan="3" class="hold" style="position: relative;">
+        6) งานด้านข้อมูลสารสนเทศ <i class='fa fa-angle-down' id="arrow6"></i>
+        <span class="percent" id="per6">100%</span>
+         <progress id="file6" value="100" max="100"> 100% </progress>
       </td>
     </tr>
     <tr>
-      <td onclick="" colspan="3" class="hold">
-        7) การบริหารความเสี่ยงและควบคุมภายใน
+      <td onclick="" colspan="3" class="hold" style="position: relative;">
+        7) การบริหารความเสี่ยงและควบคุมภายใน <i class='fa fa-angle-down' id="arrow7"></i>
+        <span class="percent" id="per7">100%</span>
+         <progress id="file7" value="100" max="100"> 100% </progress>
       </td>
     </tr>
     <tr>
-      <td onclick="" colspan="3" class="hold">
-        8) Good governance
+      <td onclick="" colspan="3" class="hold" style="position: relative;">
+        8) Good governance <i class='fa fa-angle-down' id="arrow8"></i> 
+        <span class="percent" id="per8">100%</span>
+        <progress id="file8" value="100" max="100"> 100% </progress>
       </td>
     </tr>
   </table>
@@ -212,12 +229,16 @@ function w3_close() {
     });
     bar.animate(0.2); // Number from 0.0 to 1.0
   </script>
+
   <script>
     let toggle = button => {
     let element = document.getElementById("mydiv");
     let element2 = document.getElementById("mydiv2");
     let element3 = document.getElementById("mydiv3");
     let element4 = document.getElementById("mydiv4");
+    let progress = document.getElementById("file");
+    let arrow = document.getElementById("arrow1");
+    let percent = document.getElementById("per");
     let hidden = element.getAttribute("hidden");
 
     if (hidden) {
@@ -225,12 +246,36 @@ function w3_close() {
        element2.removeAttribute("hidden");
        element3.removeAttribute("hidden");
        element4.removeAttribute("hidden");
+       percent.style.display = "none";
+       progress.style.display = "none";
+       arrow.classList.remove("fa-angle-down");
+       arrow.classList.add("fa-angle-up");
+
     } else {
        element2.setAttribute("hidden", "hidden");
        element3.setAttribute("hidden", "hidden");
        element4.setAttribute("hidden", "hidden");
        element.setAttribute("hidden", "hidden");
+       percent.setAttribute("hidden", "hidden");
+       progress.style.display = "inline";
+       percent.style.display = "inline";
+       arrow.classList.remove("fa-angle-up");
+       arrow.classList.add("fa-angle-down");
+       
     }
+    }
+  </script>
+
+  <script>
+    function myFunction(button) {
+        var x = document.getElementById("myP");
+        if (x.contentEditable == "true") {
+            x.contentEditable = "false";
+            button.innerHTML = "Enable content of p to be editable!";
+        } else {//from ww w  .ja  v a2s.c om
+            x.contentEditable = "true";
+            button.innerHTML = "Disable content of p to be editable!";
+        }
     }
   </script>
 
