@@ -63,12 +63,13 @@
     <div class="header">Edit my task</div>
         <div class="body">
             <section class="section_form">
-                <form id="consultation-form" class="feed-form" action="#">
-                <input required="" placeholder="Name" type="text">
-                <input name="phone" required="" placeholder="Phone number">
-                <input name="email" required="" placeholder="E-mail" type="number">
-                <button class="btn save"> SAVE</button>
-                <button class="btn cancle"> CANCLE</button>
+              <form class="feed-form" method="post" action="/update">
+                <input name="taskName" id="taskName" type="text" required value="">
+                <input name="taskInfo" id="taskInfo" required type="text" value="">
+                <input name="taskPercent" id="taskPercent" required type="number" min="0" max="100" value="">
+                <input name="taskID" id="taskID" value="" hidden>
+                <button class="btn save" type="submit"> SAVE</button>
+                <a class="btn cancle" href="personal.html">CANCLE</a>
                 </form>
             </section>
         </div>
@@ -138,6 +139,27 @@ function w3_close() {
     });
     bar.animate(0.2); // Number from 0.0 to 1.0
   </script>
+  
+
+  <script>
+    const taskID = localStorage.getItem('taskID');
+    document.getElementById('taskID').value = taskID;
+    
+    
+    // fetch the task data from the server
+    fetch(`/edit-data?taskID=${taskID}`)
+      .then(response => response.json())
+      .then(data => {
+        data.forEach((result) => {
+          document.getElementById('taskName').value = result.task_Name;
+          document.getElementById('taskInfo').value = result.task_Info;
+          document.getElementById('taskPercent').value = parseInt(result.task_Percent_Complete);
+        });
+      })
+      .catch(error => console.error(error));
+  </script>
+  
+  
 
 </body>
 </html>

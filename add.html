@@ -63,21 +63,19 @@
     <div class="header">Add my task</div>
         <div class="body">
             <section class="section_form">
-                <form class="feed-form" id="add" >
-                <select name="ประเภทงาน" id="ประเภทงาน" style="margin-bottom: 15px; padding-top: 15px; padding-bottom: 15px;">
-                    <option value="เลือกประเภทงาน">--เลือกประเภทงาน--</option>
+              <form class="feed-form" method="post" action="/insert">
+                <select name="taskGroup" id="ประเภทงาน" style="margin-bottom: 15px; padding-top: 15px; padding-bottom: 15px;" required>
+                    <option value="เลือกประเภทงาน" disabled selected>--เลือกประเภทงาน--</option>
                     <option value="งานหลัก">งานหลัก</option>
                     <option value="งานรอง">งานรอง</option>
                     <option value="งานอื่นๆ">งานอื่นๆ</option>
                 </select>
-                <select name="หมวดงาน" id="หมวดงาน" style="margin-bottom: 15px; padding-top: 15px; padding-bottom: 15px;">
-                    <option value="เลือกหมวดงาน">--เลือกหมวดงาน--</option>
-                </select>
-                <input required="" placeholder="Name Task" type="text">
-                <input name="info" required="" placeholder="Task Info" type="text">
-                <input name="percent" required="" placeholder="Percent Complete" type="number">
+                <input name="taskCategory" placeholder="Category Task" type="text" id="หมวดงาน" required>
+                <input name="taskName" placeholder="Name Task" type="text" required>
+                <input name="taskInfo" required placeholder="Task Info" type="text">
+                <input name="taskPercent" required placeholder="Percent Complete 0 - 100" type="number" min="0" max="100" step="1">
                 <button class="btn save" type="submit"> SAVE</button>
-                <a class="btn cancle"> CANCLE</a>
+                <a class="btn cancle" href="personal.html">CANCLE</a>
                 </form>
             </section>
         </div>
@@ -147,6 +145,8 @@ function w3_close() {
     });
     bar.animate(0.2); // Number from 0.0 to 1.0
   </script>
+
+  
 
   
 

@@ -147,23 +147,25 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   .tb {
     background-color: #ffffff;
     color: #000000;
-    border: 1px solid #000000;
+    border-bottom: 0.5px solid #000000;
     text-align: left;
     padding: 8px;
   }
 
- 
-
-  
-  
   progress {
     accent-color: green;
     position: absolute;
-    right: 55px;
+    top: 13px;
+    right: 70px;
     width: 10%;
   }
 
   .percent {
     position: absolute;
     right: 10px;
+  }
+
+  .active {
+    background-color: #666;
+    color: white;
   }
