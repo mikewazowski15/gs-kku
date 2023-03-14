@@ -62,9 +62,35 @@ app.post('/update', (req, res) => {
   });  
 });
 
+app.get('/get-data-category', (req, res) => {
+  const sql = `SELECT DISTINCT task_Category FROM tasks`;
+  connection.query(sql, (err, result) => {
+    if (err) throw err;
+    console.log('Data retrieved successfully!');
+    res.json(result);
+  });
+});
 
 app.get('/get-data', (req, res) => {
-  const sql = 'SELECT * FROM tasks';
+  const sql = `SELECT * FROM tasks WHERE task_Group = 'งานหลัก'`;
+  connection.query(sql, (err, result) => {
+    if (err) throw err;
+    console.log('Data retrieved successfully!');
+    res.json(result);
+  });
+});
+
+app.get('/get-data2', (req, res) => {
+  const sql = `SELECT * FROM tasks WHERE task_Group = 'งานรอง'`;
+  connection.query(sql, (err, result) => {
+    if (err) throw err;
+    console.log('Data retrieved successfully!');
+    res.json(result);
+  });
+});
+
+app.get('/get-data3', (req, res) => {
+  const sql = `SELECT * FROM tasks WHERE task_Group = 'งานอื่นๆ'`;
   connection.query(sql, (err, result) => {
     if (err) throw err;
     console.log('Data retrieved successfully!');

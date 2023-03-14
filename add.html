@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="/src/editTable.css" />
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
+
 </head>
 <body class="w3-light-grey">
 
@@ -64,13 +65,16 @@
         <div class="body">
             <section class="section_form">
               <form class="feed-form" method="post" action="/insert">
-                <select name="taskGroup" id="ประเภทงาน" style="margin-bottom: 15px; padding-top: 15px; padding-bottom: 15px;" required>
+                <select name="taskGroup" id="ประเภทงาน" style="margin-bottom: 15px; padding-top: 15px; padding-bottom: 15px; padding-left: 15px;" required>
                     <option value="เลือกประเภทงาน" disabled selected>--เลือกประเภทงาน--</option>
                     <option value="งานหลัก">งานหลัก</option>
                     <option value="งานรอง">งานรอง</option>
                     <option value="งานอื่นๆ">งานอื่นๆ</option>
                 </select>
-                <input name="taskCategory" placeholder="Category Task" type="text" id="หมวดงาน" required>
+                <select name="taskCategory" id="category" style="margin-bottom: 15px; padding-top: 15px; padding-bottom: 15px; padding-left: 15px;" >
+                  <option value="เลือกหมวดงาน" disabled selected>--เลือกหมวดงาน--</option>
+                </select>
+                <input name="category" placeholder="Category Task" type="text" id="หมวดงาน" style="display: none;">
                 <input name="taskName" placeholder="Name Task" type="text" required>
                 <input name="taskInfo" required placeholder="Task Info" type="text">
                 <input name="taskPercent" required placeholder="Percent Complete 0 - 100" type="number" min="0" max="100" step="1">
@@ -146,9 +150,45 @@ function w3_close() {
     bar.animate(0.2); // Number from 0.0 to 1.0
   </script>
 
-  
+<script>
+  const optionsSelect = document.getElementById('category');
+  const inputField = document.getElementById('หมวดงาน');
 
-  
+  optionsSelect.addEventListener('change', () => {
+    const selectedOption = optionsSelect.value;
+    
+    if (selectedOption === 'อื่นๆ') {
+      inputField.setAttribute('name', 'taskCategory');
+      optionsSelect.setAttribute('name', 'category');
+      inputField.style.display = 'block';
+      inputField.setAttribute('required', '');
+    } else {
+      optionsSelect.setAttribute('name', 'taskCategory');
+      inputField.setAttribute('name', 'category');
+      inputField.style.display = 'none';
+      inputField.removeAttribute('required');
+    }
+  });
+
+  // Send a request to the server-side script
+  fetch('/get-data-category')
+    .then(response => response.json())
+    .then(data => {
+      // Add options to the select element
+      data.forEach(result => {
+        console.log(data)
+        const optionElement = document.createElement('option');
+        optionElement.value = result.task_Category;
+        optionElement.textContent = result.task_Category;
+        optionsSelect.appendChild(optionElement);
+      });
+      const fixedOption = document.createElement('option');
+      fixedOption.value = 'อื่นๆ';
+      fixedOption.textContent = 'อื่นๆ';
+      optionsSelect.appendChild(fixedOption);
+    });
+
+</script>
 
 </body>
 </html>

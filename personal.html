@@ -67,9 +67,9 @@
       <tr>
         <td colspan="4" style="border-bottom: 1px solid white;">
           <div id="Group">
-            <a href="#" class="w3-bar-item w3-button w3-padding-large  btn active">งานหลัก</a>
-            <a href="#" class="w3-bar-item w3-button w3-padding-large btn">งานรอง</a>
-            <a href="#" class="w3-bar-item w3-button w3-padding-large btn">งานอื่นๆ</a>
+            <button onclick="งานหลัก()" class="w3-bar-item w3-button w3-padding-large  btn active">งานหลัก</button>
+            <button onclick="งานรอง()" class="w3-bar-item w3-button w3-padding-large btn">งานรอง</button>
+            <button onclick="งานอื่นๆ()" class="w3-bar-item w3-button w3-padding-large btn">งานอื่นๆ</button>
             <a href="add.html" class=" w3-button"><span>เพิ่มงานของฉัน </span><i href="#" class="fa fa-plus-square" style="font-size:24px"></i></a>
           </div>
           
@@ -146,7 +146,7 @@ function w3_close() {
       }
     });
     bar.animate(0.2); // Number from 0.0 to 1.0
-  </script>
+</script>
 
 <script>
   // Add active class to the current button (highlight it)
@@ -165,9 +165,18 @@ function w3_close() {
   function sendId(taskId) {
    localStorage.setItem('taskID', taskId);
   }
+</script>
+
+<script>  
   fetch('/get-data')
   .then(response => response.json())
   .then(data => {
+
+    if (data.length === 0) {
+        // Display "No data" message
+        document.querySelector('tbody').innerHTML = '<tr><td colspan="4">No data</td></tr>';
+        return;
+    }
     
     let tableRows = '';
     let groupedResults = {};
@@ -186,7 +195,6 @@ function w3_close() {
     
     let table = '';
             Object.keys(groupedResults).forEach(category => {
-              console.log(groupedResults);
               table += `
               <tr>
                   <td  colspan="4" class="hold" style="position: relative;" id="${category}">
@@ -218,7 +226,6 @@ function w3_close() {
 
                 $(document).ready(function(){
                   $(`#${task.task_Category}`).click(function(){
-                      console.log(groupedResults);
                       $(`#mydiv${task.task_ID}${task.task_Group}${task.task_Category}`).toggle();
                       $(`#per${task.task_Category}`).toggle();
                       $(`#progress${task.task_Category}`).toggle();
@@ -242,6 +249,267 @@ function w3_close() {
 
   })
   .catch(error => console.error(error));
+</script>
+
+<script>
+function งานหลัก() {  
+  fetch('/get-data')
+  .then(response => response.json())
+  .then(data => {
+
+    if (data.length === 0) {
+        // Display "No data" message
+        document.querySelector('tbody').innerHTML = '<tr><td colspan="4">No data</td></tr>';
+        return;
+    }
+    
+    let tableRows = '';
+    let groupedResults = {};
+    
+    data.forEach((result) => {
+
+
+      if (!groupedResults[result.task_Category]) {
+        groupedResults[result.task_Category] = [];
+      }
+      groupedResults[result.task_Category].push(result);
+      
+    });
+
+    let avgPercent = '';
+    
+    let table = '';
+            Object.keys(groupedResults).forEach(category => {
+              table += `
+              <tr>
+                  <td  colspan="4" class="hold" style="position: relative;" id="${category}">
+                    ${category} <i class='fa fa-angle-down' id="arrow-${category}"></i> 
+                      <span class="percent" id="per${category}">100%</span>
+                      <progress id="progress${category}" value="100" max="100" style="display: inline;"> 100% </progress>
+                  </td>
+              </tr>
+              `;
+              let totalPercent = 0;
+              groupedResults[category].forEach(task => {
+                
+                table += `
+                <tr id="mydiv${task.task_ID}${task.task_Group}${task.task_Category}" hidden="hidden" class="tb">
+                  <td style='vertical-align: top; text-align: left; padding-right: 15px;'>
+                    ${task.task_Name}
+                  </td>
+                  <td style='vertical-align: top; text-align: left; padding-right: 15px;'>
+                    ${task.task_Info}
+                  </td>
+                  <td style='text-align:right; width:10%'><div role="progressbar" aria-valuenow="${parseInt(task.task_Percent_Complete)}" aria-valuemin="0" aria-valuemax="100" 
+                    style="--value:${parseInt(task.task_Percent_Complete)}"></div></td>
+                  <td style='text-align:right; width:5%'><button onclick="location.href = 'edit.html'; sendId(${task.task_ID});"><i class='fa fa-edit' style="font-size: 24px;"></i></button></td>
+                </tr>
+                `;
+
+                totalPercent += task.task_Percent_Complete;
+                const avgPercent = totalPercent / groupedResults[category].length;
+
+                $(document).ready(function(){
+                  $(`#${task.task_Category}`).click(function(){
+                      $(`#mydiv${task.task_ID}${task.task_Group}${task.task_Category}`).toggle();
+                      $(`#per${task.task_Category}`).toggle();
+                      $(`#progress${task.task_Category}`).toggle();
+                      $(`#arrow-${task.task_Category}`).toggleClass("fa-angle-down fa-angle-up");
+                    
+                  });
+
+                  document.getElementById(`per${task.task_Category}`).textContent = avgPercent.toFixed(0) + '%';
+
+                  document.getElementById(`progress${task.task_Category}`).value = avgPercent.toFixed(0);
+
+                });
+
+                
+              });
+            });
+            // insert the HTML string into the page
+            document.querySelector('tbody').innerHTML = table;
+
+            
+
+  })
+  
+  .catch(error => console.error(error));
+}
+</script>
+
+<script>
+  function งานรอง() {  
+    fetch('/get-data2')
+    .then(response => response.json())
+    .then(data => {
+
+      if (data.length === 0) {
+        // Display "No data" message
+        document.querySelector('tbody').innerHTML = '<tr><td colspan="4">No data</td></tr>';
+        return;
+      }
+      
+      let tableRows = '';
+      let groupedResults = {};
+      
+      data.forEach((result) => {
+  
+  
+        if (!groupedResults[result.task_Category]) {
+          groupedResults[result.task_Category] = [];
+        }
+        groupedResults[result.task_Category].push(result);
+        
+      });
+  
+      let avgPercent = '';
+      
+      let table = '';
+              Object.keys(groupedResults).forEach(category => {
+                table += `
+                <tr>
+                    <td  colspan="4" class="hold" style="position: relative;" id="${category}">
+                      ${category} <i class='fa fa-angle-down' id="arrow-${category}"></i> 
+                        <span class="percent" id="per${category}">100%</span>
+                        <progress id="progress${category}" value="100" max="100" style="display: inline;"> 100% </progress>
+                    </td>
+                </tr>
+                `;
+                let totalPercent = 0;
+                groupedResults[category].forEach(task => {
+                  
+                  table += `
+                  <tr id="mydiv${task.task_ID}${task.task_Group}${task.task_Category}" hidden="hidden" class="tb">
+                    <td style='vertical-align: top; text-align: left; padding-right: 15px;'>
+                      ${task.task_Name}
+                    </td>
+                    <td style='vertical-align: top; text-align: left; padding-right: 15px;'>
+                      ${task.task_Info}
+                    </td>
+                    <td style='text-align:right; width:10%'><div role="progressbar" aria-valuenow="${parseInt(task.task_Percent_Complete)}" aria-valuemin="0" aria-valuemax="100" 
+                      style="--value:${parseInt(task.task_Percent_Complete)}"></div></td>
+                    <td style='text-align:right; width:5%'><button onclick="location.href = 'edit.html'; sendId(${task.task_ID});"><i class='fa fa-edit' style="font-size: 24px;"></i></button></td>
+                  </tr>
+                  `;
+  
+                  totalPercent += task.task_Percent_Complete;
+                  const avgPercent = totalPercent / groupedResults[category].length;
+  
+                  $(document).ready(function(){
+                    $(`#${task.task_Category}`).click(function(){
+                        $(`#mydiv${task.task_ID}${task.task_Group}${task.task_Category}`).toggle();
+                        $(`#per${task.task_Category}`).toggle();
+                        $(`#progress${task.task_Category}`).toggle();
+                        $(`#arrow-${task.task_Category}`).toggleClass("fa-angle-down fa-angle-up");
+                      
+                    });
+  
+                    document.getElementById(`per${task.task_Category}`).textContent = avgPercent.toFixed(0) + '%';
+  
+                    document.getElementById(`progress${task.task_Category}`).value = avgPercent.toFixed(0);
+  
+                  });
+  
+                  
+                });
+              });
+              // insert the HTML string into the page
+              document.querySelector('tbody').innerHTML = table;
+  
+              
+  
+    })
+    
+    .catch(error => console.error(error));
+  }
+</script>
+
+<script>
+  function งานอื่นๆ() {  
+    fetch('/get-data3')
+    .then(response => response.json())
+    .then(data => {
+
+      if (data.length === 0) {
+        // Display "No data" message
+        document.querySelector('tbody').innerHTML = '<tr><td colspan="4">No data</td></tr>';
+        return;
+      }
+      
+      let tableRows = '';
+      let groupedResults = {};
+      
+      data.forEach((result) => {
+  
+  
+        if (!groupedResults[result.task_Category]) {
+          groupedResults[result.task_Category] = [];
+        }
+        groupedResults[result.task_Category].push(result);
+        
+      });
+  
+      let avgPercent = '';
+      
+      let table = '';
+              Object.keys(groupedResults).forEach(category => {
+                table += `
+                <tr>
+                    <td  colspan="4" class="hold" style="position: relative;" id="${category}">
+                      ${category} <i class='fa fa-angle-down' id="arrow-${category}"></i> 
+                        <span class="percent" id="per${category}">100%</span>
+                        <progress id="progress${category}" value="100" max="100" style="display: inline;"> 100% </progress>
+                    </td>
+                </tr>
+                `;
+                let totalPercent = 0;
+                groupedResults[category].forEach(task => {
+                  
+                  table += `
+                  <tr id="mydiv${task.task_ID}${task.task_Group}${task.task_Category}" hidden="hidden" class="tb">
+                    <td style='vertical-align: top; text-align: left; padding-right: 15px;'>
+                      ${task.task_Name}
+                    </td>
+                    <td style='vertical-align: top; text-align: left; padding-right: 15px;'>
+                      ${task.task_Info}
+                    </td>
+                    <td style='text-align:right; width:10%'><div role="progressbar" aria-valuenow="${parseInt(task.task_Percent_Complete)}" aria-valuemin="0" aria-valuemax="100" 
+                      style="--value:${parseInt(task.task_Percent_Complete)}"></div></td>
+                    <td style='text-align:right; width:5%'><button onclick="location.href = 'edit.html'; sendId(${task.task_ID});"><i class='fa fa-edit' style="font-size: 24px;"></i></button></td>
+                  </tr>
+                  `;
+  
+                  totalPercent += task.task_Percent_Complete;
+                  const avgPercent = totalPercent / groupedResults[category].length;
+  
+                  $(document).ready(function(){
+                    $(`#${task.task_Category}`).click(function(){
+                        $(`#mydiv${task.task_ID}${task.task_Group}${task.task_Category}`).toggle();
+                        $(`#per${task.task_Category}`).toggle();
+                        $(`#progress${task.task_Category}`).toggle();
+                        $(`#arrow-${task.task_Category}`).toggleClass("fa-angle-down fa-angle-up");
+                      
+                    });
+  
+                    document.getElementById(`per${task.task_Category}`).textContent = avgPercent.toFixed(0) + '%';
+  
+                    document.getElementById(`progress${task.task_Category}`).value = avgPercent.toFixed(0);
+  
+                  });
+  
+                  
+                });
+              });
+              // insert the HTML string into the page
+              document.querySelector('tbody').innerHTML = table;
+  
+              
+  
+    })
+    
+    .catch(error => console.error(error));
+  }
 </script>
 
 
