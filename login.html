@@ -9,34 +9,51 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="/src/index.css" />
 <link rel="stylesheet" href="/src/tableIndex.css" />
-<link rel="stylesheet" href="/src/register.css" />
+<link rel="stylesheet" href="/src/login.css" />
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
 </head>
 <body class="w3-light-grey">
 
 <!-- Top container -->
-<div class="w3-bar w3-top w3-large" style="z-index:4; background-color: #ffffff; position: relative;">
+<div class="w3-bar w3-top w3-large" style="z-index:4; background-color: #ffffff;">
   <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
   <span class="w3-bar-item w3-left"><img src="/img/gs.png"></span>
-  <button class="register" onclick="location.href = 'register.html'">Register<div class="arrow-wrapper"><div class="arrow"></div></div></button>
-  <button class="login" style="right: 7%;" onclick="location.href = 'login.html'">Login<div class="arrow-wrapper"><div class="arrow"></div></div></button>
 </div>
+
 
 
 <!-- Overlay effect when opening sidebar on small screens -->
 <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
 <!-- !PAGE CONTENT! -->
-<div class="w3-main">
+<div class="w3-main" style="margin-top:43px;">
 
   <!-- Header -->
-  <img src='img/background.gif' class="center"/>
+  <header class="w3-container" style="padding-top:22px">
+    <h5><b><i class="fa fa-dashboard"></i> My Dashboard</b></h5>
+  </header>
 
   <div class="w3-row-padding w3-margin-bottom">
-    
-    
-  
+    <div class="login-card">
+        <div class="card-header">
+          <div class="log">Login</div>
+        </div>
+        <form>
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input required="" name="username" id="username" type="text">
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input required="" name="password" id="password" type="password">
+          </div>
+          <div class="form-group">
+            <input value="Login" type="submit" onclick="location.href = 'home.html'">
+          </div>
+        </form>
+    </div>
+      
   </div>
 
   

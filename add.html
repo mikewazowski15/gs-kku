@@ -16,7 +16,7 @@
 <body class="w3-light-grey">
 
 <!-- Top container -->
-<div class="w3-bar w3-top w3-large" style="z-index:4; background-color: #e7e4e4;">
+<div class="w3-bar w3-top w3-large" style="z-index:4; background-color: #ffffff;">
   <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
   <span class="w3-bar-item w3-left"><img src="/img/gs.png"></span>
 </div>
@@ -42,7 +42,7 @@
   </div>
   <div class="w3-bar-block">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-    <a href="index.html" class="w3-bar-item w3-button w3-padding "><i class="fa fa-users fa-fw"></i>  GS Overview</a>
+    <a href="home.html" class="w3-bar-item w3-button w3-padding "><i class="fa fa-users fa-fw"></i>  GS Overview</a>
     <a href="overview.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>  GS Tasks</a>
     <a href="personal.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-male fa-fw"></i>  My Tasks</a>
   </div>
@@ -65,21 +65,26 @@
         <div class="body">
             <section class="section_form">
               <form class="feed-form" method="post" action="/insert">
+                <label for="taskGroup">กรุณาเลือกประเภทงาน:</label>
                 <select name="taskGroup" id="ประเภทงาน" style="margin-bottom: 15px; padding-top: 15px; padding-bottom: 15px; padding-left: 15px;" required>
                     <option value="เลือกประเภทงาน" disabled selected>--เลือกประเภทงาน--</option>
                     <option value="งานหลัก">งานหลัก</option>
                     <option value="งานรอง">งานรอง</option>
                     <option value="งานอื่นๆ">งานอื่นๆ</option>
                 </select>
+                <label for="taskCategory">กรุณาเลือกหมวดงาน:</label>
                 <select name="taskCategory" id="category" style="margin-bottom: 15px; padding-top: 15px; padding-bottom: 15px; padding-left: 15px;" >
                   <option value="เลือกหมวดงาน" disabled selected>--เลือกหมวดงาน--</option>
                 </select>
                 <input name="category" placeholder="Category Task" type="text" id="หมวดงาน" style="display: none;">
+                <label for="taskName">กรุณากรอกชื่องาน:</label>
                 <input name="taskName" placeholder="Name Task" type="text" required>
+                <label for="taskInfo">กรุณากรอกตัวชี้วัด:</label>
                 <input name="taskInfo" required placeholder="Task Info" type="text">
+                <label for="taskPercent">กรุณากรอกชื่อเปอร์เซ็นต์ความสำเร็จ:</label>
                 <input name="taskPercent" required placeholder="Percent Complete 0 - 100" type="number" min="0" max="100" step="1">
                 <button class="btn save" type="submit"> SAVE</button>
-                <a class="btn cancle" href="personal.html">CANCLE</a>
+                <a class="btn cancle" href="personal.html">CANCEL</a>
                 </form>
             </section>
         </div>

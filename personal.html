@@ -17,7 +17,7 @@
 <body class="w3-light-grey">
 
 <!-- Top container -->
-<div class="w3-bar w3-top w3-large" style="z-index:4; background-color: #e7e4e4;">
+<div class="w3-bar w3-top w3-large" style="z-index:4; background-color: #ffffff;">
   <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
   <span class="w3-bar-item w3-left"><img src="img/gs.png"></span>
 </div>
@@ -42,7 +42,7 @@
   </div>
   <div class="w3-bar-block">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-    <a href="index.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  GS Overview</a>
+    <a href="home.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  GS Overview</a>
     <a href="overview.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>  GS Tasks</a>
     <a href="personal.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-male fa-fw"></i>  My Tasks</a>
   </div>
@@ -62,10 +62,10 @@
   <table class="ss" style="width: 80%; margin-left: auto; margin-right: auto; font-size: 20px;" id="myTable">
     <thead>
       <tr>
-        <th colspan="4" style="font-size: 25px; border-bottom: 1px solid white;">My Tasks</th>
+        <th colspan="4" style="font-size: 25px; border-bottom: 1px solid black;">My Tasks</th>
       </tr>
       <tr>
-        <td colspan="4" style="border-bottom: 1px solid white;">
+        <td colspan="4" style="border-bottom: 1px solid black;">
           <div id="Group">
             <button onclick="งานหลัก()" class="w3-bar-item w3-button w3-padding-large  btn active">งานหลัก</button>
             <button onclick="งานรอง()" class="w3-bar-item w3-button w3-padding-large btn">งานรอง</button>
@@ -174,7 +174,7 @@ function w3_close() {
 
     if (data.length === 0) {
         // Display "No data" message
-        document.querySelector('tbody').innerHTML = '<tr><td colspan="4">No data</td></tr>';
+        document.querySelector('tbody').innerHTML = '<tr><td colspan="4">No Task</td></tr>';
         return;
     }
     
@@ -209,10 +209,10 @@ function w3_close() {
                 
                 table += `
                 <tr id="mydiv${task.task_ID}${task.task_Group}${task.task_Category}" hidden="hidden" class="tb">
-                  <td style='vertical-align: top; text-align: left; padding-right: 15px;'>
+                  <td style='vertical-align: top; text-align: left; padding-right: 15px; width: 30%'>
                     ${task.task_Name}
                   </td>
-                  <td style='vertical-align: top; text-align: left; padding-right: 15px;'>
+                  <td style='vertical-align: top; text-align: left; padding-right: 15px; width: 55%'>
                     ${task.task_Info}
                   </td>
                   <td style='text-align:right; width:10%'><div role="progressbar" aria-valuenow="${parseInt(task.task_Percent_Complete)}" aria-valuemin="0" aria-valuemax="100" 
@@ -259,7 +259,7 @@ function งานหลัก() {
 
     if (data.length === 0) {
         // Display "No data" message
-        document.querySelector('tbody').innerHTML = '<tr><td colspan="4">No data</td></tr>';
+        document.querySelector('tbody').innerHTML = '<tr><td colspan="4">No Task</td></tr>';
         return;
     }
     
@@ -294,10 +294,10 @@ function งานหลัก() {
                 
                 table += `
                 <tr id="mydiv${task.task_ID}${task.task_Group}${task.task_Category}" hidden="hidden" class="tb">
-                  <td style='vertical-align: top; text-align: left; padding-right: 15px;'>
+                  <td style='vertical-align: top; text-align: left; padding-right: 15px; width: 30%'>
                     ${task.task_Name}
                   </td>
-                  <td style='vertical-align: top; text-align: left; padding-right: 15px;'>
+                  <td style='vertical-align: top; text-align: left; padding-right: 15px; width: 55%'>
                     ${task.task_Info}
                   </td>
                   <td style='text-align:right; width:10%'><div role="progressbar" aria-valuenow="${parseInt(task.task_Percent_Complete)}" aria-valuemin="0" aria-valuemax="100" 
@@ -346,7 +346,7 @@ function งานหลัก() {
 
       if (data.length === 0) {
         // Display "No data" message
-        document.querySelector('tbody').innerHTML = '<tr><td colspan="4">No data</td></tr>';
+        document.querySelector('tbody').innerHTML = '<tr><td colspan="4">No Task</td></tr>';
         return;
       }
       
@@ -381,10 +381,10 @@ function งานหลัก() {
                   
                   table += `
                   <tr id="mydiv${task.task_ID}${task.task_Group}${task.task_Category}" hidden="hidden" class="tb">
-                    <td style='vertical-align: top; text-align: left; padding-right: 15px;'>
+                    <td style='vertical-align: top; text-align: left; padding-right: 15px; width: 30%'>
                       ${task.task_Name}
                     </td>
-                    <td style='vertical-align: top; text-align: left; padding-right: 15px;'>
+                    <td style='vertical-align: top; text-align: left; padding-right: 15px; width: 55%'>
                       ${task.task_Info}
                     </td>
                     <td style='text-align:right; width:10%'><div role="progressbar" aria-valuenow="${parseInt(task.task_Percent_Complete)}" aria-valuemin="0" aria-valuemax="100" 
@@ -433,7 +433,7 @@ function งานหลัก() {
 
       if (data.length === 0) {
         // Display "No data" message
-        document.querySelector('tbody').innerHTML = '<tr><td colspan="4">No data</td></tr>';
+        document.querySelector('tbody').innerHTML = '<tr><td colspan="4">No Task</td></tr>';
         return;
       }
       
@@ -468,10 +468,10 @@ function งานหลัก() {
                   
                   table += `
                   <tr id="mydiv${task.task_ID}${task.task_Group}${task.task_Category}" hidden="hidden" class="tb">
-                    <td style='vertical-align: top; text-align: left; padding-right: 15px;'>
+                    <td style='vertical-align: top; text-align: left; padding-right: 15px; width: 30%'>
                       ${task.task_Name}
                     </td>
-                    <td style='vertical-align: top; text-align: left; padding-right: 15px;'>
+                    <td style='vertical-align: top; text-align: left; padding-right: 15px; width: 55%'>
                       ${task.task_Info}
                     </td>
                     <td style='text-align:right; width:10%'><div role="progressbar" aria-valuenow="${parseInt(task.task_Percent_Complete)}" aria-valuemin="0" aria-valuemax="100" 
