@@ -17,7 +17,10 @@
 <body class="w3-light-grey">
 
 <!-- Top container -->
-<div class="w3-bar w3-top w3-large" style="z-index:4; background-color: #ffffff;">
+<div class="w3-bar w3-top " style="z-index:5; background-image: linear-gradient(to left,#dfa229,#DB5426);">
+  <span>.</span>
+</div>
+<div class="w3-bar w3-top w3-large" style="z-index:4; background-color: #ffffff;margin-top: 20px;">
   <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
   <span class="w3-bar-item w3-left"><img src="img/gs.png"></span>
 </div>
@@ -25,26 +28,32 @@
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-collapse w3-animate-left" style="z-index:3;width:250px;margin-top: 57px;background-color: #dad9d9;" id="mySidebar"><br>
   <div class="w3-container w3-row">
-    <div class="w3-col s4">
-      <img src="img/avatar.png" class="w3-circle w3-margin-right" style="width:46px">
+    <div style="width: 100%; text-align: center;">
+      <img src="img/avatar.png" class="w3-circle" style="text-align: center; width: 150px;">
     </div>
-    <div class="w3-col s8 w3-bar">
-      <span>Welcome, <strong>ธนิดา</strong></span><br>
-      <a>นางสาวธนิดา คำแพง</a>
-      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
-      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
-      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
+    <div class="w3-col w3-bar" style="text-align: center;">
+      <span>ยินดีต้อนรับ, <strong>ธนิดา</strong></span><br>
+      <a id="navUser"></a>
+      <br>
+      <a id="navPosition"></a>
+      <br>
+      <a id="navExp"></a>
+      <br>
+      <a href="#" class="w3-bar-item hold"><i class="fa fa-envelope" style="font-size: 16px; margin-left: 12px; margin-right: 12px;"></i></a>
+      <a href="#" class="w3-bar-item hold"><i class="fa fa-user" style="font-size: 16px; margin-left: 12px; margin-right: 12px;"></i></a>
+      <a href="#" class="w3-bar-item hold"><i class="fa fa-cog" style="font-size: 16px; margin-left: 12px; margin-right: 12px;"></i></a>
     </div>
   </div>
   <hr>
+  
   <div class="w3-container">
     <h5>Dashboard</h5>
   </div>
-  <div class="w3-bar-block">
+  <div class="w3-bar-block" id="sidebar">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-    <a href="home.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  GS Overview</a>
-    <a href="overview.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>  GS Tasks</a>
-    <a href="personal.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-male fa-fw"></i>  My Tasks</a>
+    <a href="home.html" class="w3-bar-item w3-button w3-padding hold"><i class="fa fa-users fa-fw" style="font-size: 18px;"></i>  GS Overview</a>
+    <a href="overview.html" class="w3-bar-item w3-button w3-padding hold"><i class="fa fa-eye fa-fw" style="font-size: 18px;"></i>  GS Tasks</a>
+    <a href="personal.html" class="w3-bar-item w3-button w3-padding hold actives"><i class="fa fa-male fa-fw" style="font-size: 18px;"></i>  My Tasks</a>
   </div>
 </nav>
 
@@ -56,13 +65,13 @@
 <div class="w3-main" style="margin-left:250px;margin-top:43px;">
 
   <!-- Header -->
-  <header class="w3-container" style="padding-top:22px">
-    <h5><b><i class="fa fa-dashboard"></i> My Dashboard</b></h5>
-  </header>
+ 
+  <header class="w3-container" style="padding-top:10%"></header>
+
   <table class="ss" style="width: 80%; margin-left: auto; margin-right: auto; font-size: 20px;" id="myTable">
     <thead>
       <tr>
-        <th colspan="4" style="font-size: 25px; border-bottom: 1px solid black;">My Tasks</th>
+        <th colspan="4" style="font-size: 30px; border-bottom: 1px solid black;">งานของฉัน</th>
       </tr>
       <tr>
         <td colspan="4" style="border-bottom: 1px solid black;">
@@ -178,7 +187,6 @@ function w3_close() {
         return;
     }
     
-    let tableRows = '';
     let groupedResults = {};
     
     data.forEach((result) => {
@@ -194,6 +202,7 @@ function w3_close() {
     let avgPercent = '';
     
     let table = '';
+
             Object.keys(groupedResults).forEach(category => {
               table += `
               <tr>
@@ -510,6 +519,29 @@ function งานหลัก() {
     
     .catch(error => console.error(error));
   }
+</script>
+
+<script>
+  let navU = '';
+  let navP = '';
+  let navE = '';
+
+  fetch('/get-user')
+    .then(response => response.json())
+    .then(data => {
+      // Add options to the select element
+      data.forEach(result => {
+        console.log(data)
+        navU = `${result.username}`;
+        navP = `${result.main_Position}`;
+        navE = `( ${result.exp} )`;
+        document.getElementById('navUser').textContent = navU;
+        document.getElementById('navPosition').textContent = navP;
+        document.getElementById('navExp').textContent = navE;
+      });
+    });
+    
+    
 </script>
 
 

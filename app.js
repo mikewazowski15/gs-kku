@@ -107,6 +107,15 @@ app.get('/get-user', (req, res) => {
   });
 });
 
+app.get('/get-all-task', (req, res) => {
+  const sql = `SELECT * FROM users,tasks WHERE users.id = tasks.id_Staff`;
+  connection.query(sql, (err, result) => {
+    if (err) throw err;
+    console.log('Data retrieved successfully!');
+    res.json(result);
+  });
+});
+
 app.get('/edit-data', (req, res) => {
   const taskID = req.query.taskID;
   const sql = `SELECT * FROM tasks WHERE task_ID = ?`;

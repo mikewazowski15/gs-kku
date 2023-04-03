@@ -141,7 +141,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   }
 
   .hold:hover {
-    background-color: #c5c5c4;
+    background-color: #DB5426;
+    color: white;
   }
 
   .tb {
@@ -165,7 +166,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     right: 10px;
   }
 
-  .active {
-    background-color: #666;
+  
+
+  .actives {
+    background-color: #DB5426;
     color: white;
   }

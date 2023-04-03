@@ -15,3 +15,8 @@ table.ss {
     text-align: left;
     padding: 8px;
   }
+
+  .active {
+    background-color: #DB5426;
+    color: white;
+  }
