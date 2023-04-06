@@ -116,6 +116,8 @@ app.get('/get-all-task', (req, res) => {
   });
 });
 
+
+
 app.get('/edit-data', (req, res) => {
   const taskID = req.query.taskID;
   const sql = `SELECT * FROM tasks WHERE task_ID = ?`;

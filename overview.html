@@ -69,10 +69,7 @@
   <header class="w3-container" style="padding-top:6%"></header>
 
   <div class="search-container" style="position: relative; left: 10%;padding-bottom: 10px;">
-    <form action="/action_page.php">
-      <input type="text" placeholder="Search.." name="search">
-      <button type="submit"><i class="fa fa-search"></i></button>
-    </form>
+    <input id="myInput" type="text" placeholder="Search..">
   </div>
 
   <div id="tableShow"></div>
@@ -84,6 +81,17 @@
 
   <!-- End page content -->
 </div>
+
+<script>
+  $(document).ready(function(){
+    $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $(".ss").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+</script>
 
 <script>
 // Get the Sidebar
@@ -172,10 +180,11 @@ function w3_close() {
       groupedResults[result.id_Staff].push(result);
       
     });
+
             Object.keys(groupedResults).forEach(id => {
 
-              table += `
-                        <table class="ss" style="width: 80%; margin-left: auto; margin-right: auto; font-size: 20px; margin-bottom: 30px;" id="myTable${id}">
+              table += `<div class='box'>
+                        <table class="ss" style="width: 80%; margin-left: auto; margin-right: auto; font-size: 20px; margin-bottom: 30px;" id="myTable${id}" data-name="mytable">
                           <thead>
                             <tr>
                               <th colspan="4" style="font-size: 25px; border-bottom: 1px solid black;" id="head${id}"></th>
@@ -195,6 +204,7 @@ function w3_close() {
     
     
                         </table>
+                        </div>
                         `;
               
               
@@ -220,86 +230,73 @@ function w3_close() {
     }
     
     let groupedResults = {};
-
-    let idStaffs = [];
-
-    let staffID = '';
     
     
-    data.forEach((result) => {
-
-      const id_Staff = result.id_Staff;
-      if (!idStaffs.includes(id_Staff)) {
-        idStaffs.push(id_Staff);
-      }
-
-      if (!groupedResults[result.task_Category]) {
-        groupedResults[result.task_Category] = [];
-      }
-      groupedResults[result.task_Category].push(result);
+    for (const result of data) {
       
-    });
+      if (!groupedResults[result.id_Staff]) {
+        groupedResults[result.id_Staff] = {};
+      }
+      if (!groupedResults[result.id_Staff][result.task_Category]) {
+        groupedResults[result.id_Staff][result.task_Category] = [];
+      }
+      groupedResults[result.id_Staff][result.task_Category].push(result);
+    }
     
-    console.log(idStaffs);
 
     let avgPercent = '';
     
     let table = '';
 
-          
-
-            Object.keys(groupedResults).forEach(category => {
-              table += `
-              <tr>
-                  <td  colspan="4" class="hold" style="position: relative;" id="${category}">
-                    ${category} <i class='fa fa-angle-down' id="arrow-${category}"></i> 
-                      <span class="percent" id="per${category}">100%</span>
-                      <progress id="progress${category}" value="100" max="100" style="display: inline;"> 100% </progress>
+    for (const idStaff in groupedResults) {
+      for (const taskCategory in groupedResults[idStaff]) {
+        table += `<tr>
+                  <td  colspan="4" class="hold" style="position: relative;" id="${taskCategory}${idStaff}">
+                    ${taskCategory} <i class='fa fa-angle-down' id="arrow-${taskCategory}${idStaff}"></i> 
+                      <span class="percent" id="per${taskCategory}${idStaff}">100%</span>
+                      <progress id="progress${taskCategory}${idStaff}" value="100" max="100" style="display: inline;"> 100% </progress>
                   </td>
-              </tr>
-              `;
-              let totalPercent = 0;
-              groupedResults[category].forEach(task => {                
-                
-                table += `
-                <tr id="mydiv${task.task_ID}${task.task_Group}${task.task_Category}" hidden="hidden" class="tb">
+              </tr>`;
+
+        let totalPercent = 0;
+
+        for (const result of groupedResults[idStaff][taskCategory]) {
+          table += `<tr id="mydiv${result.task_ID}${result.task_Group}${result.task_Category}${result.id_Staff}" hidden="hidden" class="tb">
                   <td style='vertical-align: top; text-align: left; padding-right: 15px; width: 30%'>
-                    ${task.task_Name}
+                    ${result.task_Name}
                   </td>
                   <td style='vertical-align: top; text-align: left; padding-right: 15px; width: 60%'>
-                    ${task.task_Info}
+                    ${result.task_Info}
                   </td>
-                  <td style='text-align:right; width:10%'><div role="progressbar" aria-valuenow="${parseInt(task.task_Percent_Complete)}" aria-valuemin="0" aria-valuemax="100" 
-                    style="--value:${parseInt(task.task_Percent_Complete)}"></div></td>
-                </tr>
-                `;
+                  <td style='text-align:right; width:10%'><div role="progressbar" aria-valuenow="${parseInt(result.task_Percent_Complete)}" aria-valuemin="0" aria-valuemax="100" 
+                    style="--value:${parseInt(result.task_Percent_Complete)}"></div></td>
+                </tr>`;
+          totalPercent += result.task_Percent_Complete;
+          const avgPercent = totalPercent / groupedResults[idStaff][taskCategory].length;
 
-                totalPercent += task.task_Percent_Complete;
-                const avgPercent = totalPercent / groupedResults[category].length;
-
-                $(document).ready(function(){
-                  $(`#${task.task_Category}`).click(function(){
-                      $(`#mydiv${task.task_ID}${task.task_Group}${task.task_Category}`).toggle();
-                      $(`#per${task.task_Category}`).toggle();
-                      $(`#progress${task.task_Category}`).toggle();
-                      $(`#arrow-${task.task_Category}`).toggleClass("fa-angle-down fa-angle-up");
+          $(document).ready(function(){
+            console.log(result.task_ID)
+                  $(`#${result.task_Category}${result.id_Staff}`).click(function(){
+                      $(`#mydiv${result.task_ID}${result.task_Group}${result.task_Category}${result.id_Staff}`).toggle();
+                      $(`#per${result.task_Category}${result.id_Staff}`).toggle();
+                      $(`#progress${result.task_Category}${result.id_Staff}`).toggle();
+                      $(`#arrow-${result.task_Category}${idStaff}`).toggleClass("fa-angle-down fa-angle-up");
                     
                   });
 
-                  document.getElementById(`per${task.task_Category}`).textContent = avgPercent.toFixed(0) + '%';
+                  document.getElementById(`per${result.task_Category}${result.id_Staff}`).textContent = avgPercent.toFixed(0) + '%';
 
-                  document.getElementById(`progress${task.task_Category}`).value = avgPercent.toFixed(0);
+                  document.getElementById(`progress${result.task_Category}${result.id_Staff}`).value = avgPercent.toFixed(0);
 
-                });
-                idStaffs.forEach((id) => {
-                  document.querySelector(`#tbody${id}`).innerHTML = table;
-                });
-            
-                
-              });
-            });
-            
+          });
+
           
+        }
+      }
+      document.querySelector(`#tbody${idStaff}`).innerHTML = table;
+      table = "";
+    }
+    
 
   })
   .catch(error => console.error(error));
