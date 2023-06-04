@@ -1,4 +1,15 @@
-html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+@font-face {
+  font-family: 'THSarabunNew';
+  src: url('/fonts/thsarabunnew_italic-webfont.eot');
+  src: url('/fonts/thsarabunnew_italic-webfont.eot?#iefix') format('embedded-opentype'),
+       url('/fonts/thsarabunnew_italic-webfont.woff') format('woff'),
+       url('/fonts/thsarabunnew_italic-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+
+}
+
+* {font-family: 'Kanit', sans-serif;}
 
 .triangle-up {
   margin-left: auto;
@@ -66,7 +77,15 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     margin: 0 auto;
   }
 
-  
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+
+  .checkbox-container label {
+    margin-left: 5px;
+  }
   
   .description {
     margin-top: 2rem;
@@ -92,53 +111,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     width: 100%;
   }
   
-  .progressbar {
-    counter-reset: step;
-  }
-  .progressbar li {
-    list-style: none;
-    display: inline-block;
-    width: 15%;
-    position: relative;
-    text-align: center;
-    cursor: pointer;
-  }
-
-  .progressbar li:before {
-    content: counter(step);
-    counter-increment: step;
-    width: 30px;
-    height: 30px;
-    line-height : 30px;
-    border: 2px solid #ddd;
-    border-radius: 100%;
-    display: block;
-    text-align: center;
-    margin: 0 auto 10px auto;
-    background-color: #fff;
-  }
-  .progressbar li:after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 1px;
-    background-color: #ddd;
-    top: 15px;
-    left: -50%;
-    z-index : -1;
-  }
-  .progressbar li:first-child:after {
-    content: none;
-  }
-  .progressbar li.active {
-    color: green;
-  }
-  .progressbar li.active:before {
-    border-color: green;
-  } 
-  .progressbar li.active + li:after {
-    background-color: green;
-  }
+  
 
   .hold:hover {
     background-color: #DB5426;
@@ -153,13 +126,13 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     padding: 8px;
   }
 
-  progress {
+  /* progress {
     accent-color: green;
     position: absolute;
     top: 13px;
     right: 70px;
     width: 10%;
-  }
+  } */
 
   .percent {
     position: absolute;
@@ -171,4 +144,157 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   .actives {
     background-color: #DB5426;
     color: white;
+  }
+
+  .card {
+    width: 40%;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+  }
+  .card-container {
+    display: flex;
+  }
+
+  @media screen and (max-width: 768px) {
+    .card {
+      width: 80%;
+      margin-bottom: 60px;
+    }
+    .card-container {
+      display: inherit;
+    }
+    
+    * {
+      font-size: 16px;
+    }
+  }
+  
+  .header {
+    background-color: #DB5426;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    font-size: 30px;
+  }
+
+  div#pop-up1 {
+    display: none;
+    position: absolute;
+    width: 90%;
+    background: #ffffff;
+    color: #000000;
+    border: 1px solid #1a1a1a;
+    font-size: 90%;
+  }
+
+  div#pop-up2 {
+    display: none;
+    position: absolute;
+    width: 90%;
+    background: #ffffff;
+    color: #000000;
+    border: 1px solid #1a1a1a;
+    font-size: 90%;
+  }
+
+  /* #navGT {
+    color: #069e01;
+  }
+
+  #navGM {
+    color: #c27e00;
+  } */
+
+  /* .popup-container {
+    width: 50%;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+  } */
+
+  /* .open-button {
+    background-color: #555;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    position: fixed;
+    bottom: 23px;
+    right: 28px;
+    width: 280px;
+  } */
+  
+  /* The popup form - hidden by default */
+  .form-popup {
+    display: none;
+    position: fixed;
+    width: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 3px solid #696969;
+    z-index: 10;
+  }
+  
+  /* Add styles to the form container */
+  .form-container {
+    width: 100%;
+    padding: 100px;
+    background-color: white;
+    position: relative;
+  }
+  
+  /* Full-width input fields */
+  .form-container input[type=text], .form-container input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+  }
+  
+  /* When the inputs get focus, do something */
+  .form-container input[type=text]:focus, .form-container input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+  }
+  
+  /* Set a style for the submit/login button */
+  .form-container .btn {
+    color: black;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+  }
+  
+  /* Add a red background color to the cancel button */
+  
+  
+  /* Add some hover effects to buttons */
+  .form-container .btn:hover, .open-button:hover {
+    opacity: 1;
+  }
+
+  .head {
+    font-size: 40px; 
+    text-align:left; 
+    padding-left: 15px; 
+    width:82%;
+  }
+
+  .per {
+    text-align:left; 
+    width:18%;
+  }
+
+  .user {
+    font-size: 20px; line-height:1; color: rgb(90, 90, 90);
   }

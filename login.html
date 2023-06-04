@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="/src/index.css" />
 <link rel="stylesheet" href="/src/tableIndex.css" />
 <link rel="stylesheet" href="/src/login.css" />
-<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<link href='https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin' rel='stylesheet' type='text/css'>
 
 </head>
 <body class="w3-light-grey">
@@ -41,9 +41,9 @@
         <div class="card-header">
           <div class="log">Login</div>
         </div>
-        <form>
+        <form id="login-form" action="/login" method="POST">
           <div class="form-group">
-            <label for="username">Username:</label>
+            <label for="username">Email:</label>
             <input required="" name="username" id="username" type="text">
           </div>
           <div class="form-group">
@@ -51,7 +51,7 @@
             <input required="" name="password" id="password" type="password">
           </div>
           <div class="form-group">
-            <input value="Login" type="submit" onclick="location.href = 'home.html'">
+            <input value="Login" type="submit" >
           </div>
         </form>
     </div>
@@ -92,36 +92,8 @@ function w3_close() {
 
 <script src="https://rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>
 
-<script>
-    let bar = new ProgressBar.SemiCircle("#container", {
-      strokeWidth: 12,
-      color: "white",
-      trailColor: "rgba(255,255,255, 0.4)",
-      trailWidth: 12,
-      easing: "easeInOut",
-      duration: 1400,
-      svgStyle: null,
-      text: {
-        value: "",
-        alignToBottom: false,
-        className: "progressbar__label"
-      },
 
-      // Set default step function for all animate calls
-      step: (state, bar) => {
-        bar.path.setAttribute("stroke", state.color);
-        var value = Math.round(bar.value() * 100);
-        if (value === 0) {
-          bar.setText("");
-        } else {
-          bar.setText(value);
-        }
 
-        bar.text.style.color = state.color;
-      }
-    });
-    bar.animate(0.2); // Number from 0.0 to 1.0
-  </script>
 
 </body>
 </html>

@@ -9,7 +9,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="/src/style.css" />
 <link rel="stylesheet" href="/src/editTable.css" />
-<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<link rel="stylesheet" href="/src/date.css" />
+<link href='https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin' rel='stylesheet' type='text/css'>
 
 </head>
 <body class="w3-light-grey">
@@ -31,28 +32,27 @@
       <img src="img/avatar.png" class="w3-circle" style="text-align: center; width: 150px;">
     </div>
     <div class="w3-col w3-bar" style="text-align: center;">
-      <span>ยินดีต้อนรับ, <strong>ธนิดา</strong></span><br>
-      <a id="navUser"></a>
+      <a id="navUser" style="font-size: 22px;"></a>
       <br>
-      <a id="navPosition"></a>
+      <a id="navPosition" style="font-size: 16px; color: rgb(60, 60, 60);"></a>
       <br>
-      <a id="navExp"></a>
-      <br>
-      <a href="#" class="w3-bar-item hold"><i class="fa fa-envelope" style="font-size: 16px; margin-left: 12px; margin-right: 12px;"></i></a>
-      <a href="#" class="w3-bar-item hold"><i class="fa fa-user" style="font-size: 16px; margin-left: 12px; margin-right: 12px;"></i></a>
-      <a href="#" class="w3-bar-item hold"><i class="fa fa-cog" style="font-size: 16px; margin-left: 12px; margin-right: 12px;"></i></a>
+      <a id="navExp" style="font-size: 16px; color: rgb(60, 60, 60);"></a>
+      <br><br>
+      <div style="width: 100%; font-size: 16px; color: rgb(60, 60, 60);">
+        <a id="navGT" ></a>
+        <br>
+        <a id="navGM" ></a>
+      </div>
     </div>
   </div>
   <hr>
   
-  <div class="w3-container">
-    <h5>Dashboard</h5>
-  </div>
   <div class="w3-bar-block" id="sidebar">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-    <a href="home.html" class="w3-bar-item w3-button w3-padding hold"><i class="fa fa-users fa-fw" style="font-size: 18px;"></i>  GS Overview</a>
-    <a href="overview.html" class="w3-bar-item w3-button w3-padding hold"><i class="fa fa-eye fa-fw" style="font-size: 18px;"></i>  GS Tasks</a>
-    <a href="personal.html" class="w3-bar-item w3-button w3-padding hold"><i class="fa fa-male fa-fw" style="font-size: 18px;"></i>  My Tasks</a>
+    <a style="font-size: 16px;" href="home.html" class="w3-bar-item w3-button w3-padding hold"><i class="fa fa-users fa-fw" style="font-size: 18px;"></i>  ภาพรวมของบัณฑิตวิทยาลัย</a>
+    <a style="font-size: 16px;" href="overview.html" class="w3-bar-item w3-button w3-padding hold"><i class="fa fa-eye fa-fw" style="font-size: 18px;"></i>  งานของบัณฑิตวิทยาลัย</a>
+    <a style="font-size: 16px;" href="personal.html" class="w3-bar-item w3-button w3-padding hold"><i class="fa fa-male fa-fw" style="font-size: 18px;"></i>  งานของฉัน</a>
+    <a style="font-size: 16px;" href="editInfo.html" class="w3-bar-item w3-button w3-padding hold"><i class="fas fa-pen" style="font-size: 18px;"></i>  แก้ไขข้อมูลส่วนตัว</a>
   </div>
 </nav>
 
@@ -65,19 +65,54 @@
 
   <!-- Header -->
 
-  <header class="w3-container" style="padding-top:5%"></header>
+  <header class="w3-container" style="height: 120px;"><span> </span></header>
 
   <div class="card">
     <div class="header">แก้ไขงานของฉัน</div>
         <div class="body">
             <section class="section_form">
-              <form class="feed-form" method="post" action="/update">
+              <form class="feed-form" method="post" action="/update" style="font-size: 22px;">
+                <label for="taskGroups">ประเภทงาน:</label>
+                <select name="taskGroups" id="ประเภทงาน" style="margin-bottom: 15px; padding-top: 15px; padding-bottom: 15px; padding-left: 15px;" required>
+                    <option value="เลือกประเภทงาน" disabled selected>--เลือกประเภทงาน--</option>
+                    <option value="งานหลัก">งานหลัก</option>
+                    <option value="งานรอง">งานรอง</option>
+                    <option value="งานอื่นๆ">งานอื่นๆ</option>
+                </select>
+                <label for="taskCategory">หมวดงาน:</label>
+                <select name="taskCategory" id="category" style="margin-bottom: 15px; padding-top: 15px; padding-bottom: 15px; padding-left: 15px;" >
+                  <option value="เลือกหมวดงาน" disabled selected>--เลือกหมวดงาน--</option>
+                </select>
+                <input name="category" placeholder="Category Task" type="text" id="หมวดงาน" style="display: none;">
+                <div>
+                  <div class="checkbox-container">
+                    <a><input style="width: 18px; height: 18px;" type="checkbox" id="okrs" value="OKRs"> OKRs</a>
+                    <span style="margin-right: 20px;"></span>
+                    <a></label><input style="width: 18px; height: 18px;" type="checkbox" id="riskmanagement" value="Risk Management"> Risk Management</a>
+                    <input id="okrsrm" name="okrsrm" type="text" hidden value="">
+                  </div>
+                </div>
+                <label for="taskName">ชื่องาน:</label>
                 <input name="taskName" id="taskName" type="text" required value="">
+                <label for="taskInfo">ตัวชี้วัด:</label>
                 <input name="taskInfo" id="taskInfo" required type="text" value="">
-                <input name="taskPercent" id="taskPercent" required type="number" min="0" max="100" value="">
+                <label for="taskFinisher">ตัวชี้วัดความสำเร็จ:</label>
+                <select name="taskFinisher" id="taskFinisher" style="margin-bottom: 15px; padding-top: 15px; padding-bottom: 15px; padding-left: 15px;">
+                  <option disabled selected value="เลือกผู้ดูแลโครงการ">--เลือกตัวชี้วัดความสำเร็จ--</option>
+                  <option value="จำนวน">จำนวน</option>
+                  <option value="ร้อยละความสำเร็จ">ร้อยละความสำเร็จ</option>
+                  <option value="ระดับความพึงพอใจของผู้ให้บริหาร">ระดับความพึงพอใจของผู้ให้บริหาร</option>
+                  <option value="ไม่มี">ไม่มี</option>
+                </select>
+                <label for="taskPercent" id="labelTaskPercent">เปอร์เซ็นต์ความสำเร็จ:</label>
+                <input name="taskPercent" id="taskPercent" placeholder="เปอร์เซ็นต์ความสำเร็จ 1 - 100" type="number" min="0" max="100" step="1">
+                <label for="" id="">จำนวนความสำเร็จโครงการ:</label>
+                <input name="" id="" placeholder="กรอกจำนวนความสำเร็จโครงการ" type="number" min="0" max="100" step="1">
+                <label for="taskDate">วันสิ้นสุดโครงการ:</label>
+                <input type="text" name="taskDate" id="taskDate" required placeholder="วัน-เดือน-ปี" autocomplete="off">
                 <input name="taskID" id="taskID" value="" hidden>
-                <button class="btn save" type="submit"> SAVE</button>
-                <a class="btn cancle" href="personal.html">CANCEL</a>
+                <button class="btn save" type="submit"> บันทึก</button>
+                <a class="btn cancle" onclick="window.location.href='personal.html'" style="text-align: center;">ยกเลิก</a>
                 </form>
             </section>
         </div>
@@ -89,6 +124,42 @@
 
   <!-- End page content -->
 </div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>  
+
+<script src="/src/date.js"></script>
+
+<script type="text/javascript">   
+$(function(){
+     
+    $.datetimepicker.setLocale('th'); // ต้องกำหนดเสมอถ้าใช้ภาษาไทย และ เป็นปี พ.ศ.
+     
+    // กรณีใช้แบบ inline
+  /*  $("#testdate4").datetimepicker({
+        timepicker:false,
+        format:'d-m-Y',  // กำหนดรูปแบบวันที่ ที่ใช้ เป็น 00-00-0000            
+        lang:'th',  // ต้องกำหนดเสมอถ้าใช้ภาษาไทย และ เป็นปี พ.ศ.
+        inline:true  
+    });    */   
+     
+     
+    // กรณีใช้แบบ input
+    $("#taskDate").datetimepicker({
+        timepicker:false,
+        format:'d-m-Y',  // กำหนดรูปแบบวันที่ ที่ใช้ เป็น 00-00-0000            
+        lang:'th',  // ต้องกำหนดเสมอถ้าใช้ภาษาไทย และ เป็นปี พ.ศ.
+        onSelectDate:function(dp,$input){
+            var yearT=new Date(dp).getFullYear();  
+            var yearTH=yearT+543;
+            var fulldate=$input.val();
+            var fulldateTH=fulldate.replace(yearT,yearTH);
+            $input.val(fulldateTH);
+        },
+    });     
+     
+     
+});
+</script>
 
 <script>
 // Get the Sidebar
@@ -115,39 +186,72 @@ function w3_close() {
 }
 </script>
 
-<script src="https://rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>
-
 <script>
-    let bar = new ProgressBar.SemiCircle("#container", {
-      strokeWidth: 12,
-      color: "white",
-      trailColor: "rgba(255,255,255, 0.4)",
-      trailWidth: 12,
-      easing: "easeInOut",
-      duration: 1400,
-      svgStyle: null,
-      text: {
-        value: "",
-        alignToBottom: false,
-        className: "progressbar__label"
-      },
+  const optionsSelect = document.getElementById('category');
+  const inputField = document.getElementById('หมวดงาน');
 
-      // Set default step function for all animate calls
-      step: (state, bar) => {
-        bar.path.setAttribute("stroke", state.color);
-        var value = Math.round(bar.value() * 100);
-        if (value === 0) {
-          bar.setText("");
-        } else {
-          bar.setText(value);
-        }
+  optionsSelect.addEventListener('change', () => {
+    const selectedOption = optionsSelect.value;
+    
+    if (selectedOption === 'อื่นๆ') {
+      inputField.setAttribute('name', 'taskCategory');
+      optionsSelect.setAttribute('name', 'category');
+      inputField.style.display = 'block';
+      inputField.setAttribute('required', '');
+    } else {
+      optionsSelect.setAttribute('name', 'taskCategory');
+      inputField.setAttribute('name', 'category');
+      inputField.style.display = 'none';
+      inputField.removeAttribute('required');
+    }
+  });
 
-        bar.text.style.color = state.color;
-      }
-    });
-    bar.animate(0.2); // Number from 0.0 to 1.0
-  </script>
   
+
+  // Send a request to the server-side script
+  fetch('/get-data-category')
+    .then(response => response.json())
+    .then(data => {
+      // Add options to the select element
+      data.forEach(result => {
+        console.log(result.id_Staff)
+        if (result.id_Staff === parseInt(sessionStorage.getItem('userId'))) {
+          const optionElement = document.createElement('option');
+          optionElement.value = result.task_Category;
+          optionElement.textContent = result.task_Category;
+          optionsSelect.appendChild(optionElement);
+        }
+      });
+      const fixedOption = document.createElement('option');
+      fixedOption.value = 'อื่นๆ';
+      fixedOption.textContent = 'อื่นๆ';
+      optionsSelect.appendChild(fixedOption);
+    });
+
+</script>
+
+<script src="https://rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>
+  
+<script>
+  var rm = document.getElementById('riskmanagement');
+  var okrs = document.getElementById('okrs');
+  var okrsrmInput = document.getElementById('okrsrm');
+
+  function updateOkrsrmValue() {
+    if (rm.checked && okrs.checked) {
+      okrsrmInput.value = "both";
+    } else if (okrs.checked) {
+      okrsrmInput.value = "okrs";
+    } else if (rm.checked) {
+      okrsrmInput.value = "rm";
+    } else {
+      okrsrmInput.value = "";
+    }
+  }
+
+  okrs.addEventListener('change', updateOkrsrmValue);
+  rm.addEventListener('change', updateOkrsrmValue);
+</script>
 
   <script>
     const taskID = localStorage.getItem('taskID');
@@ -161,28 +265,44 @@ function w3_close() {
         data.forEach((result) => {
           document.getElementById('taskName').value = result.task_Name;
           document.getElementById('taskInfo').value = result.task_Info;
+          document.getElementById('taskDate').value = result.task_Date;
           document.getElementById('taskPercent').value = parseInt(result.task_Percent_Complete);
         });
       })
       .catch(error => console.error(error));
   </script>
+  
   <script>
+    const userId = sessionStorage.getItem('userId');
+  
+    // Use the userId as needed
     let navU = '';
     let navP = '';
     let navE = '';
+    let navGT = '';
+    let navGM = '';
+    let navGTs = '';
+    let navGMs = '';
+    
   
     fetch('/get-user')
       .then(response => response.json())
       .then(data => {
         // Add options to the select element
         data.forEach(result => {
-          console.log(data)
-          navU = `${result.username}`;
-          navP = `${result.main_Position}`;
-          navE = `( ${result.exp} )`;
-          document.getElementById('navUser').textContent = navU;
-          document.getElementById('navPosition').textContent = navP;
-          document.getElementById('navExp').textContent = navE;
+          if (result.id === parseInt(userId)) {
+            navU = `${result.username}`;
+            navP = `${result.main_Position}`;
+            navE = `( ${result.exp} )`;
+            navGT = `${result.groupTask}`;
+            navGM = `${result.groupMission}`;
+            document.getElementById('navUser').textContent = navU;
+            document.getElementById('navPosition').textContent = navP;
+            document.getElementById('navExp').textContent = navE;
+            document.getElementById('navGT').textContent = navGT;
+            document.getElementById('navGM').textContent = navGM;
+            
+          }
         });
       });
       

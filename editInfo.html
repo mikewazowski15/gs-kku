@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>GS progress tracking system</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/src/style.css" />
+<link rel="stylesheet" href="/src/editTable.css" />
+<link href='https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+</head>
+<body class="w3-light-grey">
+
+<!-- Top container -->
+<div class="w3-bar w3-top " style="z-index:5; background-image: linear-gradient(to left,#dfa229,#DB5426);">
+  <span>.</span>
+</div>
+<div class="w3-bar w3-top w3-large" style="z-index:4; background-color: #ffffff;margin-top: 20px;">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
+  <span class="w3-bar-item w3-left"><img src="img/gs.png"></span>
+</div>
+
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-animate-left" style="z-index:3;width:250px;margin-top: 57px;background-color: #dad9d9;" id="mySidebar"><br>
+  <div class="w3-container w3-row">
+    <div style="width: 100%; text-align: center;">
+      <img src="img/avatar.png" class="w3-circle" style="text-align: center; width: 150px;">
+    </div>
+    <div class="w3-col w3-bar" style="text-align: center;">
+      <a id="navUser" style="font-size: 22px;"></a>
+      <br>
+      <a id="navPosition" style="font-size: 16px; color: rgb(60, 60, 60);"></a>
+      <br>
+      <a id="navExp" style="font-size: 16px; color: rgb(60, 60, 60);"></a>
+      <br><br>
+      <div style="width: 100%; font-size: 16px; color: rgb(60, 60, 60);">
+        <a id="navGT" ></a>
+        <br>
+        <a id="navGM" ></a>
+      </div>
+    </div>
+  </div>
+  <hr>
+  
+  <div class="w3-bar-block" id="sidebar">
+    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+    <a style="font-size: 16px;" href="home.html" class="w3-bar-item w3-button w3-padding hold"><i class="fa fa-users fa-fw" style="font-size: 18px;"></i>  ภาพรวมของบัณฑิตวิทยาลัย</a>
+    <a style="font-size: 16px;" href="overview.html" class="w3-bar-item w3-button w3-padding hold"><i class="fa fa-eye fa-fw" style="font-size: 18px;"></i>  งานของบัณฑิตวิทยาลัย</a>
+    <a style="font-size: 16px;" href="personal.html" class="w3-bar-item w3-button w3-padding hold"><i class="fa fa-male fa-fw" style="font-size: 18px;"></i>  งานของฉัน</a>
+    <a style="font-size: 16px;" href="editInfo.html" class="w3-bar-item w3-button w3-padding hold actives"><i class="fas fa-pen" style="font-size: 18px;"></i>  แก้ไขข้อมูลส่วนตัว</a>
+  </div>
+</nav>
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:250px;margin-top:43px;">
+
+  <!-- Header -->
+
+  <header class="w3-container" style="height: 120px;"><span> </span></header>
+
+  <div class="card">
+    <div class="header">แก้ไขงานของฉัน</div>
+        <div class="body">
+            <section class="section_form">
+                <form class="feed-form" method="post" action="/updateProfile" style="font-size: 22px;" onsubmit="return validatePassword()">
+                    <label for="userName">ชื่อผู้ใช้:</label>
+                    <input name="userName" id="userName" type="text" required value="">
+                    <label for="email">อีเมล:</label>
+                    <input name="email" id="email" type="text" required value="">
+                    <label for="password">รหัสผ่านใหม่:</label>
+                    <input name="password" id="password" type="password" pattern="^(?=.*[A-Z])(?=.*\d).{8,}$" oninput="validatePassword()">
+                    <div id="passwordMatchMessage"></div>
+                    <label for="passwordConfirm">ยืนยันรหัสผ่าน:</label>
+                    <input name="passwordConfirm" id="passwordConfirm" type="password" value="" oninput="checkPasswordMatch()">
+                    <div id="passwordMatchMessage2"></div>
+                    <input name="userID" id="userID" value="" hidden>
+                    <button class="btn save" type="submit" onclick="hashPassword()"> บันทึก</button>
+                    <a class="btn cancle" onclick="window.location.href='home.html'" style="text-align: center;"> ยกเลิก</a>
+                </form>
+            </section>
+        </div>
+    </div>
+  </div>
+  
+
+  
+
+  <!-- End page content -->
+</div>
+
+<script>
+    function validatePassword() {
+        var password = document.getElementById("password").value;
+        var message = document.getElementById("passwordMatchMessage");
+        var uppercaseRegex = /[A-Z]/;
+        var digitRegex = /[0-9]/;
+
+        if (password.length < 8 || !uppercaseRegex.test(password) || !digitRegex.test(password)) {
+            message.textContent = "*รหัสผ่านต้องประกอบด้วยตัวอักษรตัวใหญ่อย่างน้อย 1 ตัว และตัวเลขอย่างน้อย 1 ตัว และมีความยาวอย่างน้อย 8 ตัวอักษร";
+            message.style.color = "red";
+            message.style.fontSize = '16px'
+        }
+    }
+    
+    function checkPasswordMatch() {
+      var password = document.getElementById("password").value;
+      var passwordConfirm = document.getElementById("passwordConfirm").value;
+      var message2 = document.getElementById("passwordMatchMessage2");
+    
+      if (password === passwordConfirm) {
+        message2.textContent = "รหัสผ่านตรงกัน";
+        message2.style.color = "green";
+        message2.style.fontSize = '16px'
+      } else {
+        message2.textContent = "รหัสผ่านไม่ตรงกัน";
+        message2.style.fontSize = '16px'
+        message2.style.color = "red";
+      }
+    }
+</script>
+
+<script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+  if (mySidebar.style.display === 'block') {
+    mySidebar.style.display = 'none';
+    overlayBg.style.display = "none";
+  } else {
+    mySidebar.style.display = 'block';
+    overlayBg.style.display = "block";
+  }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+  mySidebar.style.display = "none";
+  overlayBg.style.display = "none";
+}
+</script>
+
+<script>
+
+  // Send a request to the server-side script
+  fetch('/get-profile-data')
+    .then(response => response.json())
+    .then(data => {
+      // Add options to the select element
+      data.forEach(result => {
+        if (result.id === parseInt(sessionStorage.getItem('userId'))) {
+          console.log(result)
+          document.getElementById('userName').value = result.username;
+          document.getElementById('email').value = result.email;
+          document.getElementById('userID').value = result.id;
+        }
+      });
+    });
+
+</script>
+
+<script src="https://rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+
+<script>
+    function hashPassword() {
+      var password = document.getElementById('password').value;
+      var hashedPassword = CryptoJS.SHA256(password).toString();
+      document.getElementById('hashedPassword').value = hashedPassword;
+    }
+</script>
+  
+  
+<script>
+    const userId = sessionStorage.getItem('userId');
+  
+    // Use the userId as needed
+    let navU = '';
+    let navP = '';
+    let navE = '';
+    let navGT = '';
+    let navGM = '';
+    let navGTs = '';
+    let navGMs = '';
+    
+  
+    fetch('/get-user')
+      .then(response => response.json())
+      .then(data => {
+        // Add options to the select element
+        data.forEach(result => {
+          if (result.id === parseInt(userId)) {
+            navU = `${result.username}`;
+            navP = `${result.main_Position}`;
+            navE = `( ${result.exp} )`;
+            navGT = `${result.groupTask}`;
+            navGM = `${result.groupMission}`;
+            document.getElementById('navUser').textContent = navU;
+            document.getElementById('navPosition').textContent = navP;
+            document.getElementById('navExp').textContent = navE;
+            document.getElementById('navGT').textContent = navGT;
+            document.getElementById('navGM').textContent = navGM;
+            
+          }
+        });
+      });
+      
+      
+</script>
+  
+  
+
+</body>
+</html>

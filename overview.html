@@ -10,8 +10,9 @@
 <link rel="stylesheet" href="src/style.css" />
 <link rel="stylesheet" href="src/circle.css" />
 <link rel="stylesheet" href="src/table.css" />
-<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin' rel='stylesheet' type='text/css'>
 
 </head>
 <body class="w3-light-grey">
@@ -32,28 +33,27 @@
       <img src="img/avatar.png" class="w3-circle" style="text-align: center; width: 150px;">
     </div>
     <div class="w3-col w3-bar" style="text-align: center;">
-      <span>ยินดีต้อนรับ, <strong>ธนิดา</strong></span><br>
-      <a id="navUser"></a>
+      <a id="navUser" style="font-size: 22px;"></a>
       <br>
-      <a id="navPosition"></a>
+      <a id="navPosition" style="font-size: 16px; color: rgb(60, 60, 60);"></a>
       <br>
-      <a id="navExp"></a>
-      <br>
-      <a href="#" class="w3-bar-item hold"><i class="fa fa-envelope" style="font-size: 16px; margin-left: 12px; margin-right: 12px;"></i></a>
-      <a href="#" class="w3-bar-item hold"><i class="fa fa-user" style="font-size: 16px; margin-left: 12px; margin-right: 12px;"></i></a>
-      <a href="#" class="w3-bar-item hold"><i class="fa fa-cog" style="font-size: 16px; margin-left: 12px; margin-right: 12px;"></i></a>
+      <a id="navExp" style="font-size: 16px; color: rgb(60, 60, 60);"></a>
+      <br><br>
+      <div style="width: 100%; font-size: 16px; color: rgb(60, 60, 60);">
+        <a id="navGT" ></a>
+        <br>
+        <a id="navGM" ></a>
+      </div>
     </div>
   </div>
   <hr>
   
-  <div class="w3-container">
-    <h5>Dashboard</h5>
-  </div>
   <div class="w3-bar-block" id="sidebar">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-    <a href="home.html" class="w3-bar-item w3-button w3-padding hold"><i class="fa fa-users fa-fw" style="font-size: 18px;"></i>  GS Overview</a>
-    <a href="overview.html" class="w3-bar-item w3-button w3-padding hold actives"><i class="fa fa-eye fa-fw" style="font-size: 18px;"></i>  GS Tasks</a>
-    <a href="personal.html" class="w3-bar-item w3-button w3-padding hold"><i class="fa fa-male fa-fw" style="font-size: 18px;"></i>  My Tasks</a>
+    <a href="home.html" class="w3-bar-item w3-button w3-padding hold" style="font-size: 16px;"><i class="fa fa-users fa-fw" style="font-size: 18px;"></i>  ภาพรวมของบัณฑิตวิทยาลัย</a>
+    <a href="overview.html" class="w3-bar-item w3-button w3-padding hold actives" style="font-size: 16px;"><i class="fa fa-eye fa-fw" style="font-size: 18px;"></i>  งานของบัณฑิตวิทยาลัย</a>
+    <a href="personal.html" class="w3-bar-item w3-button w3-padding hold" style="font-size: 16px;"><i class="fa fa-male fa-fw" style="font-size: 18px;"></i>  งานของฉัน</a>
+    <a style="font-size: 16px;" href="editInfo.html" class="w3-bar-item w3-button w3-padding hold"><i class="fas fa-pen" style="font-size: 18px;"></i>  แก้ไขข้อมูลส่วนตัว</a>
   </div>
 </nav>
 
@@ -66,31 +66,55 @@
 
   <!-- Header -->
   
-  <header class="w3-container" style="padding-top:6%"></header>
+  <header class="w3-container" style="height: 120px;"><span> </span></header>
 
   <div class="search-container" style="position: relative; left: 10%;padding-bottom: 10px;">
-    <input id="myInput" type="text" placeholder="Search..">
+    <input id="myInput" type="text" placeholder="Search.." style="margin-left: 15px;">
+    <label for="task" style="margin-left: 15px;">กลุ่มงาน:</label>
+    <select id="task"></select>
+    <label for="mission" id="labelMission" style="margin-left: 15px;">กลุ่มภารกิจ:</label>
+    <select id="mission" style="width: 280px;"></select>
   </div>
-
+  <br><br>
+  <div class="form-popup" id="myForm">
+    <form class="form-container">
+      <input id="idTask" type="text" hidden></input>
+      <div id="show-more-data" style="font-size: 25px;"></div>
+      <a class="btn cancel" onclick="closeForm()"><i class='fas fa-times' style='font-size:24px'></i></a>
+    </form>
+  </div>
   <div id="tableShow"></div>
-  
 
   
 
   
-
-  <!-- End page content -->
 </div>
 
 <script>
-  $(document).ready(function(){
-    $("#myInput").on("keyup", function() {
-      var value = $(this).val().toLowerCase();
-      $(".ss").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-      });
+$(document).ready(function(){
+  $("#mission").hide();
+  $("#labelMission").hide();
+  $("#myInput, #mission, #task").on("keyup change", function() {
+    var inputVal = $("#myInput").val().toLowerCase();
+    var taskVal = $("#task").val();
+    var missionVal = $("#mission").val();
+
+    $(".ss").filter(function() {
+      var textVal = $(this).text().toLowerCase();
+      var taskMatch = (textVal.indexOf(taskVal) > -1);
+      var inputMatch = (inputVal === "" || textVal.indexOf(inputVal) > -1);
+      var missionMatch = (missionVal === "" || textVal.indexOf(missionVal) > -1);
+      if (taskVal === "") {
+        $("#mission").hide();
+        $("#labelMission").hide();
+      } else { 
+        $("#mission").show();
+        $("#labelMission").show();
+      }
+      $(this).toggle((taskMatch && inputMatch) && missionMatch);
     });
   });
+});
 </script>
 
 <script>
@@ -117,86 +141,80 @@ function w3_close() {
   overlayBg.style.display = "none";
 }
 </script>
+  
+<script>
+var optionMission = '';
+document.getElementById('mission').innerHTML = '<option value=""></option>'
+$(document).ready(function(){
+  $("#task").on("change", function() {
+    var taskVal = $("#task").val().toLowerCase();
+    
+    // Reset options of the 'mission' select element
+    document.getElementById('mission').innerHTML = '';
+    document.getElementById('mission').innerHTML = '<option value=""></option>'
+    fetch(`/get-groupMission?groupTask=${taskVal}`)
+    .then(response => response.json())
+    .then(data => {
+      data.forEach(result => {
+        if (result.groupTask === taskVal) {
+          optionMission = `<option value="${result.groupMission}">${result.groupMission}</option>`
+          document.getElementById('mission').insertAdjacentHTML('beforeend', optionMission);
+        }
+      });
+    });
+  });
+});
+</script>
+
+<script>
+  let selects = document.getElementById('task')
+  let optionTask = '';
+  fetch('/get-groupTask')
+    .then(response => response.json())
+    .then(data => {
+      data.forEach(result => {
+        optionTask = `<option value="${result.groupTask}">${result.groupTask}</option>`
+        selects.insertAdjacentHTML('beforeend', optionTask);
+      
+      });
+    });
+    
+</script>
 
 <script src="https://rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>
-
-<script>
-    let bar = new ProgressBar.SemiCircle("#container", {
-      strokeWidth: 12,
-      color: "white",
-      trailColor: "rgba(255,255,255, 0.4)",
-      trailWidth: 12,
-      easing: "easeInOut",
-      duration: 1400,
-      svgStyle: null,
-      text: {
-        value: "",
-        alignToBottom: false,
-        className: "progressbar__label"
-      },
-
-      // Set default step function for all animate calls
-      step: (state, bar) => {
-        bar.path.setAttribute("stroke", state.color);
-        var value = Math.round(bar.value() * 100);
-        if (value === 0) {
-          bar.setText("");
-        } else {
-          bar.setText(value);
-        }
-
-        bar.text.style.color = state.color;
-      }
-    });
-    bar.animate(0.2); // Number from 0.0 to 1.0
-</script>
-
-
-<script>
-  function sendId(taskId) {
-   localStorage.setItem('taskID', taskId);
-  }
-</script>
 
 <script>  
   fetch('/get-all-task')
   .then(response => response.json())
   .then(data => {
-
-    if (data.length === 0) {
-        // Display "No data" message
-        document.querySelector('tbody').innerHTML = '<tr><td colspan="4">No Task</td></tr>';
-        return;
-    }
     
     let table = '';
     let groupedResults = {};
     
     data.forEach((result) => {
 
-      if (!groupedResults[result.id_Staff]) {
-        groupedResults[result.id_Staff] = [];
+      if (!groupedResults[result.id]) {
+        groupedResults[result.id] = [];
       }
-      groupedResults[result.id_Staff].push(result);
+      groupedResults[result.id].push(result);
       
     });
 
             Object.keys(groupedResults).forEach(id => {
-
               table += `<div class='box'>
-                        <table class="ss" style="width: 80%; margin-left: auto; margin-right: auto; font-size: 20px; margin-bottom: 30px;" id="myTable${id}" data-name="mytable">
+                        <table class="ss" style="width: 90%; margin-left: auto; margin-right: auto; margin-bottom: 90px;" id="myTable${id}" data-name="mytable">
                           <thead>
                             <tr>
-                              <th colspan="4" style="font-size: 25px; border-bottom: 1px solid black;" id="head${id}"></th>
+                              <th class="head" id="head${id}" colspan="2"></th>
+                              <th class="per" colspan="3"><div id='per${id}' style='position: relative;'></div></th
                             </tr>
                             <tr>
-                              <td colspan="4" style="border-bottom: 1px solid black;">
-                                <div id="Group">
-                                  <button onclick="งานหลัก()" class="w3-bar-item w3-button w3-padding-large  btn active" id="งานหลัก${groupedResults[id]}">งานหลัก</button>
-                                  <button onclick="งานรอง()" class="w3-bar-item w3-button w3-padding-large btn" id="งานรอง${groupedResults[id]}">งานรอง</button>
-                                  <button onclick="งานอื่นๆ()" class="w3-bar-item w3-button w3-padding-large btn" id="งานอื่นๆ${groupedResults[id]}">งานอื่นๆ</button>
+                              <td colspan="6" style="border-bottom: 1px solid black; border-top: 1px solid black;">
+                                <div id="Group${id}">
+                                  <button style='font-size:22px;' onclick='งานหลัก(${id})' class="w3-bar-item w3-button w3-padding-large btn active" id="งานหลัก${id}">งานหลัก</button>
+                                  <button style='font-size:22px;' onclick='งานรอง(${id})' class="w3-bar-item w3-button w3-padding-large btn" id="งานรอง${id}">งานรอง</button>
+                                  <button style='font-size:22px;' onclick='งานอื่นๆ(${id})' class="w3-bar-item w3-button w3-padding-large btn" id="งานอื่นๆ${id}">งานอื่นๆ</button>
                                 </div>
-                                
                               </td>
                             </tr>    
                           </thead>
@@ -218,11 +236,296 @@ function w3_close() {
   .catch(error => console.error(error));
 </script>
 
-<script>  
-  fetch('/get-all-task')
+<script>
+  function งานหลัก(staffId) {
+  
+    document.getElementById(`งานรอง${staffId}`).classList.remove("active");
+    document.getElementById(`งานหลัก${staffId}`).classList.add("active");
+    document.getElementById(`งานอื่นๆ${staffId}`).classList.remove("active");
+    
+
+  fetch(`/get-all-task4?staffId=${staffId}`)
   .then(response => response.json())
   .then(data => {
 
+    if (data.length === 0) {
+        // Display "No data" message
+        document.querySelector(`#tbody${staffId}`).innerHTML = '<tr><td colspan="5" style="font-size:22px;">ไม่มีงานในขณะนี้</td></tr>';
+        return;
+    }
+    
+    let groupedResults = {};
+    
+    data.forEach((result) => {
+
+
+      if (!groupedResults[result.task_Category]) {
+        groupedResults[result.task_Category] = [];
+      }
+      groupedResults[result.task_Category].push(result);
+      
+    });
+
+    
+    let table = '';
+
+    Object.keys(groupedResults).forEach(category => {
+              table += `
+              <tr>
+                  <td  colspan="4" class="hold" style="position: relative; font-size:22px;" id="${category}${staffId}">
+                    ${category} <i class='fa fa-angle-down' id="arrow-${category}${staffId}"></i> 
+                  </td>
+                  <tr id="thead${category}${staffId}" hidden="hidden">
+                      <th style='text-align: center; padding-right: 15px; width: 30%; font-size:19px; color: rgb(70, 70, 70);'>ชื่อโครงการ</th>
+                      <th style='text-align: center; padding-right: 15px; width: 52%; font-size:19px; color: rgb(70, 70, 70);'>รายละเอียดโครงการ</th>
+                      <th style='text-align: center; padding-right: 15px; width: 11%; font-size:19px; color: rgb(70, 70, 70);'>วันสิ้นสุดโครงการ</th>
+                      <th style='text-align: center; padding-right: 15px; width: 5%; font-size:19px; color: rgb(70, 70, 70);'></th>
+                      <th style='text-align: center; padding-right: 15px; width: 2%; font-size:19px; color: rgb(70, 70, 70);'></th>
+                    </tr>
+              </tr>
+              `;
+              groupedResults[category].forEach(task => {
+
+                let color = ''
+
+                if (task.task_Percent_Complete > 0 && task.task_Percent_Complete <= 33) {
+                  color = 'rgb(255, 50, 0)'
+                } else if (task.task_Percent_Complete > 33 && task.task_Percent_Complete <= 66) {
+                  color = 'rgb(210, 110, 0)'
+                } else if (task.task_Percent_Complete > 66 && task.task_Percent_Complete <= 100) {
+                  color = 'green'
+                }
+                
+                table += `<tr id="mydiv${task.task_ID}${task.task_Group}${task.task_Category}${task.id_Staff}" hidden="hidden" class="tb">
+                  <td style='vertical-align: top; text-align: left; padding-right: 15px; width: 30%; font-size:20px; color: rgb(80, 80, 80);'>
+                    ${task.task_Name}
+                  </td>
+                  <td style='vertical-align: top; text-align: left; padding-right: 15px; width: 52%; font-size:20px; color: rgb(80, 80, 80);'>
+                    ${task.task_Info}
+                  </td>
+                  <td style='text-align:center; width:11%; font-size:20px; color: rgb(80, 80, 80);'>
+                    ${task.task_Date}
+                  </td>
+                  <td style='text-align:center; width:5%'><div role="progressbar" aria-valuenow="${parseInt(task.task_Percent_Complete)}" aria-valuemin="0" aria-valuemax="100" 
+                    style="--value:${parseInt(task.task_Percent_Complete)}; --fg: ${color};"></div>
+                  </td>
+                  <td style='text-align:center; width:2%'><span onclick="openForm(${task.task_ID})" title="คลิกเพื่อดูข้อมูลเพิ่มเติม"><i class='far fa-file-alt' style='font-size:20px; margin-left: 10px;'></i></span></td>
+                </tr>`;
+
+                $(document).ready(function(){
+                  $(`#${task.task_Category}${staffId}`).click(function(){
+                      $(`#mydiv${task.task_ID}${task.task_Group}${task.task_Category}${staffId}`).toggle();
+                      $(`#arrow-${task.task_Category}${staffId}`).toggleClass("fa-angle-down fa-angle-up");
+                  });
+                });
+
+                
+              });
+            });
+            // insert the HTML string into the page
+            document.querySelector(`#tbody${staffId}`).innerHTML = table;
+
+            
+
+  })
+  .catch(error => console.error(error));
+  }
+</script>
+
+<script>
+  function งานรอง(staffId) {
+
+    document.getElementById(`งานหลัก${staffId}`).classList.remove("active");
+    document.getElementById(`งานรอง${staffId}`).classList.add("active");
+    document.getElementById(`งานอื่นๆ${staffId}`).classList.remove("active");
+
+  fetch(`/get-all-task2?staffId=${staffId}`)
+  .then(response => response.json())
+  .then(data => {
+
+    if (data.length === 0) {
+        // Display "No data" message
+        document.querySelector(`#tbody${staffId}`).innerHTML = '<tr><td colspan="5" style="font-size:22px;">ไม่มีงานในขณะนี้</td></tr>';
+        return;
+    }
+    
+    let groupedResults = {};
+    
+    data.forEach((result) => {
+
+
+      if (!groupedResults[result.task_Category]) {
+        groupedResults[result.task_Category] = [];
+      }
+      groupedResults[result.task_Category].push(result);
+      
+    });
+
+    
+    let table = '';
+
+    Object.keys(groupedResults).forEach(category => {
+              table += `
+              <tr>
+                  <td  colspan="4" class="hold" style="position: relative; font-size:22px;" id="${category}${staffId}">
+                    ${category} <i class='fa fa-angle-down' id="arrow-${category}${staffId}"></i> 
+                  </td>
+                  <tr id="thead${category}${staffId}" hidden="hidden">
+                      <th style='text-align: center; padding-right: 15px; width: 30%; font-size:19px; color: rgb(70, 70, 70);'>ชื่อโครงการ</th>
+                      <th style='text-align: center; padding-right: 15px; width: 52%; font-size:19px; color: rgb(70, 70, 70);'>รายละเอียดโครงการ</th>
+                      <th style='text-align: center; padding-right: 15px; width: 11%; font-size:19px; color: rgb(70, 70, 70);'>วันสิ้นสุดโครงการ</th>
+                      <th style='text-align: center; padding-right: 15px; width: 5%; font-size:19px; color: rgb(70, 70, 70);'></th>
+                      <th style='text-align: center; padding-right: 15px; width: 2%; font-size:19px; color: rgb(70, 70, 70);'></th>
+                    </tr>
+              </tr>
+              `;
+              groupedResults[category].forEach(task => {
+
+                let color = ''
+
+                if (task.task_Percent_Complete > 0 && task.task_Percent_Complete <= 33) {
+                  color = 'rgb(255, 50, 0)'
+                } else if (task.task_Percent_Complete > 33 && task.task_Percent_Complete <= 66) {
+                  color = 'rgb(210, 110, 0)'
+                } else if (task.task_Percent_Complete > 66 && task.task_Percent_Complete <= 100) {
+                  color = 'green'
+                }
+                
+                table += `<tr id="mydiv${task.task_ID}${task.task_Group}${task.task_Category}${task.id_Staff}" hidden="hidden" class="tb">
+                  <td style='vertical-align: top; text-align: left; padding-right: 15px; width: 30%; font-size:20px; color: rgb(80, 80, 80);'>
+                    ${task.task_Name}
+                  </td>
+                  <td style='vertical-align: top; text-align: left; padding-right: 15px; width: 52%; font-size:20px; color: rgb(80, 80, 80);'>
+                    ${task.task_Info}
+                  </td>
+                  <td style='text-align:center; width:11%; font-size:20px; color: rgb(80, 80, 80);'>
+                    ${task.task_Date}
+                  </td>
+                  <td style='text-align:center; width:5%'><div role="progressbar" aria-valuenow="${parseInt(task.task_Percent_Complete)}" aria-valuemin="0" aria-valuemax="100" 
+                    style="--value:${parseInt(task.task_Percent_Complete)}; --fg: ${color};"></div>
+                  </td>
+                  <td style='text-align:center; width:2%'><span onclick="openForm(${task.task_ID})" title="คลิกเพื่อดูข้อมูลเพิ่มเติม"><i class='far fa-file-alt' style='font-size:20px; margin-left: 10px;'></i></span></td>
+                </tr>`;
+
+                $(document).ready(function(){
+                  $(`#${task.task_Category}${staffId}`).click(function(){
+                      $(`#mydiv${task.task_ID}${task.task_Group}${task.task_Category}${staffId}`).toggle();
+                      $(`#arrow-${task.task_Category}${staffId}`).toggleClass("fa-angle-down fa-angle-up");
+                  });
+                });
+
+                
+              });
+            });
+            // insert the HTML string into the page
+            document.querySelector(`#tbody${staffId}`).innerHTML = table;
+
+            
+
+  })
+  .catch(error => console.error(error));
+  }
+</script>
+
+<script>
+  function งานอื่นๆ(staffId) {
+
+    document.getElementById(`งานหลัก${staffId}`).classList.remove("active");
+    document.getElementById(`งานอื่นๆ${staffId}`).classList.add("active");
+    document.getElementById(`งานรอง${staffId}`).classList.remove("active");
+
+  fetch(`/get-all-task3?staffId=${staffId}`)
+  .then(response => response.json())
+  .then(data => {
+
+    if (data.length === 0) {
+        // Display "No data" message
+        document.querySelector(`#tbody${staffId}`).innerHTML = '<tr><td colspan="5" style="font-size:22px;">ไม่มีงานในขณะนี้</td></tr>';
+        return;
+    }
+    
+    let groupedResults = {};
+    
+    data.forEach((result) => {
+
+
+      if (!groupedResults[result.task_Category]) {
+        groupedResults[result.task_Category] = [];
+      }
+      groupedResults[result.task_Category].push(result);
+      
+    });
+
+    
+    let table = '';
+
+    Object.keys(groupedResults).forEach(category => {
+              table += `
+              <tr>
+                  <td  colspan="4" class="hold" style="position: relative; font-size:22px;" id="${category}${staffId}">
+                    ${category} <i class='fa fa-angle-down' id="arrow-${category}${staffId}"></i> 
+                  </td>
+                  <tr id="thead${category}${staffId}" hidden="hidden">
+                      <th style='text-align: center; padding-right: 15px; width: 30%; font-size:19px; color: rgb(70, 70, 70);'>ชื่อโครงการ</th>
+                      <th style='text-align: center; padding-right: 15px; width: 52%; font-size:19px; color: rgb(70, 70, 70);'>รายละเอียดโครงการ</th>
+                      <th style='text-align: center; padding-right: 15px; width: 11%; font-size:19px; color: rgb(70, 70, 70);'>วันสิ้นสุดโครงการ</th>
+                      <th style='text-align: center; padding-right: 15px; width: 5%; font-size:19px; color: rgb(70, 70, 70);'></th>
+                      <th style='text-align: center; padding-right: 15px; width: 2%; font-size:19px; color: rgb(70, 70, 70);'></th>
+                  </tr>
+              </tr>
+              `;
+              groupedResults[category].forEach(task => {
+
+                let color = ''
+
+                if (task.task_Percent_Complete > 0 && task.task_Percent_Complete <= 33) {
+                  color = 'rgb(255, 50, 0)'
+                } else if (task.task_Percent_Complete > 33 && task.task_Percent_Complete <= 66) {
+                  color = 'rgb(210, 110, 0)'
+                } else if (task.task_Percent_Complete > 66 && task.task_Percent_Complete <= 100) {
+                  color = 'green'
+                }
+                
+                table += `<tr id="mydiv${task.task_ID}${task.task_Group}${task.task_Category}${task.id_Staff}" hidden="hidden" class="tb">
+                  <td style='vertical-align: top; text-align: left; padding-right: 15px; width: 30%; font-size:20px; color: rgb(80, 80, 80);'>
+                    ${task.task_Name}
+                  </td>
+                  <td style='vertical-align: top; text-align: left; padding-right: 15px; width: 52%; font-size:20px; color: rgb(80, 80, 80);'>
+                    ${task.task_Info}
+                  </td>
+                  <td style='text-align:center; width:11%; font-size:20px; color: rgb(80, 80, 80);'>
+                    ${task.task_Date}
+                  </td>
+                  <td style='text-align:center; width:5%'><div role="progressbar" aria-valuenow="${parseInt(task.task_Percent_Complete)}" aria-valuemin="0" aria-valuemax="100" 
+                    style="--value:${parseInt(task.task_Percent_Complete)}; --fg:${color};"></div>
+                  </td>
+                  <td style='text-align:center; width:2%'><span onclick="openForm(${task.task_ID})" title="คลิกเพื่อดูข้อมูลเพิ่มเติม"><i class='far fa-file-alt' style='font-size:20px; margin-left: 10px;'></i></span></td>
+                </tr>`;
+
+                $(document).ready(function(){
+                  $(`#${task.task_Category}${staffId}`).click(function(){
+                      $(`#mydiv${task.task_ID}${task.task_Group}${task.task_Category}${staffId}`).toggle();
+                      $(`#arrow-${task.task_Category}${staffId}`).toggleClass("fa-angle-down fa-angle-up");
+                  });
+                });
+
+                
+              });
+            });
+            // insert the HTML string into the page
+            document.querySelector(`#tbody${staffId}`).innerHTML = table;
+
+            
+
+  })
+  .catch(error => console.error(error));
+  }
+</script>
+
+<script>  
+  fetch('/get-all-task5')
+  .then(response => response.json())
+  .then(data => {
     if (data.length === 0) {
         // Display "No data" message
         document.querySelector('tbody').innerHTML = '<tr><td colspan="4">No Task</td></tr>';
@@ -233,7 +536,6 @@ function w3_close() {
     
     
     for (const result of data) {
-      
       if (!groupedResults[result.id_Staff]) {
         groupedResults[result.id_Staff] = {};
       }
@@ -244,53 +546,62 @@ function w3_close() {
     }
     
 
-    let avgPercent = '';
     
     let table = '';
 
     for (const idStaff in groupedResults) {
       for (const taskCategory in groupedResults[idStaff]) {
         table += `<tr>
-                  <td  colspan="4" class="hold" style="position: relative;" id="${taskCategory}${idStaff}">
+                  <td colspan="6" class="hold" style="position: relative; font-size:22px;" id="${taskCategory}${idStaff}">
                     ${taskCategory} <i class='fa fa-angle-down' id="arrow-${taskCategory}${idStaff}"></i> 
-                      <span class="percent" id="per${taskCategory}${idStaff}">100%</span>
-                      <progress id="progress${taskCategory}${idStaff}" value="100" max="100" style="display: inline;"> 100% </progress>
                   </td>
+                    <tr id="thead${taskCategory}${idStaff}" hidden="hidden">
+                      <th style='text-align: center; padding-right: 15px; width: 30%; font-size:19px; color: rgb(70, 70, 70);'>ชื่อโครงการ</th>
+                      <th style='text-align: center; padding-right: 15px; width: 52%; font-size:19px; color: rgb(70, 70, 70);'>รายละเอียดโครงการ</th>
+                      <th style='text-align: center; padding-right: 15px; width: 11%; font-size:19px; color: rgb(70, 70, 70);'>วันสิ้นสุดโครงการ</th>
+                      <th style='text-align: center; padding-right: 15px; width: 5%; font-size:19px; color: rgb(70, 70, 70);'></th>
+                      <th style='text-align: center; padding-right: 15px; width: 2%; font-size:19px; color: rgb(70, 70, 70);'></th>
+                    </tr>
               </tr>`;
 
-        let totalPercent = 0;
 
         for (const result of groupedResults[idStaff][taskCategory]) {
+          let color = ''
+
+          if (result.task_Percent_Complete > 0 && result.task_Percent_Complete <= 33) {
+            color = 'rgb(255, 50, 0)'
+          } else if (result.task_Percent_Complete > 33 && result.task_Percent_Complete <= 66) {
+            color = 'rgb(210, 110, 0)'
+          } else if (result.task_Percent_Complete > 66 && result.task_Percent_Complete <= 100) {
+            color = 'green'
+          }
+
           table += `<tr id="mydiv${result.task_ID}${result.task_Group}${result.task_Category}${result.id_Staff}" hidden="hidden" class="tb">
-                  <td style='vertical-align: top; text-align: left; padding-right: 15px; width: 30%'>
+                  <td style='vertical-align: top; text-align: left; padding-right: 15px; width: 30%; font-size:20px; color: rgb(80, 80, 80);'>
                     ${result.task_Name}
                   </td>
-                  <td style='vertical-align: top; text-align: left; padding-right: 15px; width: 60%'>
+                  <td style='vertical-align: top; text-align: left; padding-right: 15px; width: 52%; font-size:20px; color: rgb(80, 80, 80);'>
                     ${result.task_Info}
                   </td>
-                  <td style='text-align:right; width:10%'><div role="progressbar" aria-valuenow="${parseInt(result.task_Percent_Complete)}" aria-valuemin="0" aria-valuemax="100" 
-                    style="--value:${parseInt(result.task_Percent_Complete)}"></div></td>
+                  <td style='text-align:center; width:11%; font-size:20px; color: rgb(80, 80, 80);'>
+                    ${result.task_Date}
+                  </td>
+                  <td style='text-align:center; width:5%'><div role="progressbar" aria-valuenow="${parseInt(result.task_Percent_Complete)}" aria-valuemin="0" aria-valuemax="100" 
+                    style="--value:${parseInt(result.task_Percent_Complete)}; --fg: ${color};"></div>
+                  </td>
+                  <td style='text-align:center; width:2%'><span onclick="openForm(${result.task_ID})" title="คลิกเพื่อดูข้อมูลเพิ่มเติม"><i class='far fa-file-alt' style='font-size:20px; margin-left: 10px;'></i></span></td>
                 </tr>`;
-          totalPercent += result.task_Percent_Complete;
-          const avgPercent = totalPercent / groupedResults[idStaff][taskCategory].length;
 
           $(document).ready(function(){
-            console.log(result.task_ID)
                   $(`#${result.task_Category}${result.id_Staff}`).click(function(){
                       $(`#mydiv${result.task_ID}${result.task_Group}${result.task_Category}${result.id_Staff}`).toggle();
-                      $(`#per${result.task_Category}${result.id_Staff}`).toggle();
-                      $(`#progress${result.task_Category}${result.id_Staff}`).toggle();
+                      $(`#thead${result.task_Category}${result.id_Staff}`).toggle();
                       $(`#arrow-${result.task_Category}${idStaff}`).toggleClass("fa-angle-down fa-angle-up");
-                    
                   });
-
-                  document.getElementById(`per${result.task_Category}${result.id_Staff}`).textContent = avgPercent.toFixed(0) + '%';
-
-                  document.getElementById(`progress${result.task_Category}${result.id_Staff}`).value = avgPercent.toFixed(0);
-
           });
 
           
+        
         }
       }
       document.querySelector(`#tbody${idStaff}`).innerHTML = table;
@@ -300,6 +611,37 @@ function w3_close() {
 
   })
   .catch(error => console.error(error));
+
+  
+  
+</script>
+
+<script>
+  function openForm(idTask) {
+    document.getElementById('idTask').value = idTask;
+    document.getElementById("myForm").style.display = "block";
+    fetch(`/get-more-data?task_ID=${idTask}`)
+      .then(response => response.json())
+      .then(data => {
+        data.forEach((result) => {
+          if (result.task_ID === idTask) {
+            document.getElementById('show-more-data').innerHTML = `
+              <a>ชื่อโครงการ: ${result.task_Name}</a>
+              <br>
+              <a>รายละเอียดโครงการ: ${result.task_Info}</a>
+              <br>
+              <a>เปอร์เซนต์ความสำเร็จ: ${result.task_Percent_Complete}</a>
+              <br>
+            `
+          }
+        });
+      })
+      .catch(error => console.error(error));
+  }
+
+  function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+  }
 </script>
 
 <script>
@@ -308,10 +650,14 @@ function w3_close() {
   fetch('/get-user')
     .then(response => response.json())
     .then(data => {
-      // Add options to the select element
       data.forEach(result => {
-        user = `${result.username} ตำแหน่ง : ${result.main_Position} (${result.exp})`
-        document.getElementById(`head${result.id_Staff}`).textContent = user;
+        if (result.exp.length === 0 && result.groupMission.length === 0 && result.groupTask.length === 0) {
+          user = `${result.username} <br><p class="user">${result.main_Position} </p>`
+          document.getElementById(`head${result.id}`).innerHTML = user;
+        } else {
+          user = `${result.username} <br><p class="user">${result.main_Position} (${result.exp})<br>${result.groupTask}<br>${result.groupMission}</p>`
+          document.getElementById(`head${result.id}`).innerHTML = user;
+        }
       });
     });
     
@@ -319,34 +665,163 @@ function w3_close() {
 </script>
 
 <script>
-  // Add active class to the current button (highlight it)
-  var header = document.getElementById("Group");
-  var btns = header.getElementsByClassName("btn");
-  for (var i = 0; i < btns.length; i++) {
-    btns[i].addEventListener("click", function() {
-    var current = document.getElementsByClassName("active");
-    current[0].className = current[0].className.replace(" active", "");
-    this.className += " active";
-    });
-  }
+
+  
+let per = '';
+let groupedResults = {};
+
+fetch('/get-all-task6')
+  .then(response => response.json())
+  .then(data => {
+    
+    
+    for (const result of data) {
+      if (!groupedResults[result.id]) {
+        groupedResults[result.id] = {};
+      }
+      if (!groupedResults[result.id][result.task_Group]) {
+        groupedResults[result.id][result.task_Group] = [];
+      }
+      groupedResults[result.id][result.task_Group].push(result);
+    }
+
+    let average = 0;
+    let average2 = 0;
+    let average3 = 0;
+
+    for (const id in groupedResults) {
+      for (const taskGroup in groupedResults[id]) {
+        if (taskGroup === 'งานหลัก') {
+          let totalPercent = 0;
+          let count = 0;
+          for (const result of groupedResults[id][taskGroup]) {
+            if (result.id_Staff === result.id) {
+              totalPercent += result.task_Percent_Complete;
+              count++;
+            }
+            
+          }
+          
+          average = totalPercent / count
+        }
+
+        if (taskGroup === 'งานรอง') {
+          let totalPercent2 = 0;
+          let count2 = 0;
+          for (const result of groupedResults[id][taskGroup]) {
+            if (result.id_Staff === result.id) {
+              totalPercent2 += result.task_Percent_Complete;
+              count2++;
+            }
+            
+          }
+          
+          average2 = totalPercent2 / count2
+        }
+
+        if (taskGroup === 'งานอื่นๆ') {
+          let totalPercent3 = 0;
+          let count3 = 0;
+          for (const result of groupedResults[id][taskGroup]) {
+            if (result.id_Staff === result.id) {
+              totalPercent3 += result.task_Percent_Complete;
+              count3++;
+            }
+            
+          }
+          
+          average3 = totalPercent3 / count3
+        }
+        
+      }
+
+      let color = ''
+      let color2 = ''
+      let color3 = ''
+
+      if (average > 0 && average <= 33) {
+        color = 'rgb(255, 50, 0)'
+      } else if (average > 33 && average <= 66) {
+        color = 'rgb(210, 110, 0)'
+      } else if (average > 66 && average <= 100) {
+        color = 'green'
+      }
+
+      if (average2 > 0 && average2 < 25) {
+        color2 = 'rgb(255, 50, 0)'
+      } else if (average2 > 33 && average2 <= 66) {
+        color2 = 'rgb(210, 110, 0)'
+      } else if (average2 > 66 && average2 <= 100) {
+        color2 = 'green'
+      }
+
+      if (average3 > 0 && average3 < 25) {
+        color3 = 'rgb(255, 50, 0)'
+      } else if (average3 > 33 && average3 <= 66) {
+        color3 = 'rgb(210, 110, 0)'
+      } else if (average3 > 66 && average3 <= 100) {
+        color3 = 'green'
+      }
+
+      per += `   <label style='font-size: 19px;'>งานหลัก:</label>
+                 <progress id="perงานหลัก${id}" value="${average}" max="100" style="position: absolute; width: 30%; left:50%; top:8px; accent-color: ${color};"> 100% </progress>
+                 <a style='font-size: 19px; position: absolute; left:85%; top:2px'>${average.toFixed(0)}%</a><br>
+                 <label style='font-size: 19px;'>งานรอง:</label>
+                 <progress id="perงานรอง${id}" value="${average2}" max="100" style="position: absolute; width: 30%; left:50%; top:36px; accent-color: ${color2};"> 100% </progress>
+                 <a style='font-size: 19px; position: absolute; left:85%; top:30px'>${average2.toFixed(0)}%</a><br>
+                 <label style='font-size: 19px;'>งานอื่นๆ:</label>
+                 <progress id="perงานอื่นๆ${id}" value="${average3}" max="100" style="position: absolute; width: 30%; left:50%; top:65px; accent-color: ${color3};"> 100% </progress>
+                 <a style='font-size: 19px; position: absolute; left:85%; top:58px'>${average3.toFixed(0)}%</a><br>`
+                 
+
+      
+      document.getElementById(`per${id}`).innerHTML = per;
+      average = 0;
+      average2 = 0;
+      average3 = 0;
+      per='';
+    }
+      
+
+            
+
+  })
+  .catch(error => console.error(error));
+
 </script>
 
+
 <script>
+  const userId = sessionStorage.getItem('userId');
+
+  // Use the userId as needed
   let navU = '';
   let navP = '';
   let navE = '';
+  let navGT = '';
+  let navGM = '';
+  let navGTs = '';
+  let navGMs = '';
+  
 
   fetch('/get-user')
     .then(response => response.json())
     .then(data => {
       // Add options to the select element
       data.forEach(result => {
-        navU = `${result.username}`;
-        navP = `${result.main_Position}`;
-        navE = `( ${result.exp} )`;
-        document.getElementById('navUser').textContent = navU;
-        document.getElementById('navPosition').textContent = navP;
-        document.getElementById('navExp').textContent = navE;
+        if (result.id === parseInt(userId)) {
+          navU = `${result.username}`;
+          navP = `${result.main_Position}`;
+          navE = `( ${result.exp} )`;
+          navGT = `${result.groupTask}`;
+          navGM = `${result.groupMission}`;
+          document.getElementById('navUser').textContent = navU;
+          document.getElementById('navPosition').textContent = navP;
+          document.getElementById('navExp').textContent = navE;
+          document.getElementById('navGT').textContent = navGT;
+          document.getElementById('navGM').textContent = navGM;
+          
+        }
       });
     });
     

@@ -1,4 +1,4 @@
-.card {
+  .card {
     width: 70%;
     background-color: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -10,11 +10,11 @@
   }
   
   .header {
-    background-color: #333;
+    background-color: #DB5426;
     color: #fff;
-    padding: 20px;
+    padding: 10px;
     text-align: center;
-    font-size: 18px;
+    font-size: 30px;
   }
   
   .body {
@@ -40,11 +40,34 @@
     font-size: 14px;
     color: #4B4B4B;
   }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .btn {
+      display: inline-block;
+      font-family: sans-serif;
+      width: 100px;
+      font-weight: 600;
+      font-size: 16px;
+      color: #000000;
+      margin: 1rem auto;
+      padding: 0.7rem 2rem;
+      border-radius: 30em;
+      border-style: none;
+      position: absolute;
+      z-index: 1;
+      overflow: hidden;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      background-color: transparent;
+      box-shadow: 1px 1px 5px #000000;
+    }
+    
+  }
   
   .btn {
     display: inline-block;
     font-family: sans-serif;
-    width: 150px;
     font-weight: 600;
     font-size: 16px;
     color: #000000;
@@ -60,16 +83,19 @@
     letter-spacing: 2px;
     background-color: transparent;
     box-shadow: 1px 1px 5px #000000;
+    text-align: center;
   }
 
   .save {
     bottom: 8px;
     left: 55%;
+    background-color: #09ff00af;
   }
 
   .cancle {
     bottom: 8px;
     right: 55%;
+    background-color: #ff0000a9;
   }
   
   .save::before {
